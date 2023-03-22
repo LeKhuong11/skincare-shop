@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --green: #00cc96;
+    --greenInput: rgba(0, 204, 150, 1);
+    --greenLight: rgba(0, 204, 150, 0.1);
+    --blue: rgb(41, 117, 255);
+    --blueLight: rgb(41, 117, 255, 0.1);
+    --yellow: #ffc123;
+    --yellowLight: rgb(255, 193, 35, 0.1);
+    --pink: #ff66a0;
+    --pinkLight: rgb(255, 102, 160, 0.1);
+    --gray: #f6f7fb;
+    --red: #ff0000;
+    --white: #ffffff;
+    --drakMode: #14141b;
+    --black: #000000;
+    --textDrak100: #1a202c;
+    --textDrak64: rgb(26, 32, 44, 0.64);
+    --textDrak40: rgb(26, 32, 44, 0.4);
+    --textDrak24: rgb(26, 32, 44, 0.24);
+    --textLight100: rgb(247, 250, 252);
+    --textLight64: rgb(247, 250, 252, 0.64);
+    --textLight40: rgb(247, 250, 252, 0.4);
+    --textLight24: rgb(247, 250, 252, 0.24);
+    --topbarHeightDesktop: 100px;
+    --titleHeight: 32px;
+    --fontWeightRegular: 400;
+    --fontWeightMedium: 500;
+    --fontWeightSemibold: 600;
+    --fontWeightBold: 700;
+  }
+  
+  html,
+  body {
+    font-family: "Montserrat", sans-serif;
+    color: var(--textColor);
+  }
+  
+  h1 {
+    /* Text/H1/Bold */
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: var(--fontWeightBold);
+    font-size: 40px;
+    line-height: 56px;
+    color: var(--textDrak100);
+  }
+  h2 {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: var(--fontWeightBold);
+    font-size: 32px;
+    line-height: 48px;
+    color: var(--textDrak100);
+  }
+  h3 {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: var(--fontWeightBold);
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--textDrak100);
+  }
+  h4 {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: var(--fontWeightSemibold);
+    font-size: 20px;
+    line-height: 32px;
+    color: var(--textDrak100);
+  }
+  
+  h5 {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: var(--fontWeightSemibold);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--textDrak100);
+  }
+  h6 {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: var(--fontWeightBold);
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--textDrak100);
+  }

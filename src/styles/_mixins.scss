@@ -1,0 +1,27 @@
+$--desktop-L: 1440px;
+$--desktop-M: 1024px;
+$--tablet: 768px;
+$--mobile: 375px; 
+
+@mixin Responsive($canvas) {
+    @if ($canvas == $--desktop-L) {
+        @media only screen and (max-width: $--desktop-L) {
+            @content;
+        }
+    }
+    @else if ($canvas == $--desktop-M) {
+        @media only screen and (max-width: $--desktop-M) {
+            @content;
+        }
+    }
+    @else if ($canvas == $--tablet) {
+        @media only screen and (max-width: $--tablet) {
+            @content;
+        }
+    }
+    @else if ($canvas == $--mobile) {
+        @media only screen and (max-width: $--mobile) {
+            @content;
+        }
+    }
+}

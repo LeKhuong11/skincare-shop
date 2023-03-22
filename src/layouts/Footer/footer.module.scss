@@ -1,0 +1,122 @@
+@import "../../styles/mixins";
+
+@mixin linkItem {
+    font-size: 16px;
+    line-height: 24px;
+    height: 24px;
+    font-weight: var(--fontWeightRegular);
+    color: var(--textDrak100);
+}
+.footer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 100px;
+    margin: 144px 0 72px;
+    @include Responsive($--desktop-M) {
+        margin: 112px 0 64px;
+        column-gap: 50px;
+    }
+    @include Responsive($--tablet) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .footerInfo {
+        min-width: 216px;
+        @include Responsive($--desktop-M) {
+            min-width: auto;
+        }
+        @include Responsive($--tablet) {
+            max-width: 134px;
+        }
+        .logoLink, .content, .btnMode {
+            display: block;
+        }
+        .logoLink {
+            .logoImg {
+                display: block;
+                width: 100%;
+            }
+        }
+        .content {
+            @include linkItem;
+            margin: 24px 0 32px;
+        }
+        .containerLinkSocialNetwork {
+            width: 176px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 48px;
+            @include Responsive($--tablet) {
+                width: 134px;
+            }
+            .linkSocialNetwork {
+                display: block;
+                position: relative;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background-color: var(--gray);
+                transition: 0.3s;
+                @include Responsive($--tablet) {
+                    width: 24px;
+                    height: 24px;
+                }
+                svg {
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 18px;
+                    height: 18px;
+                    color: var(--black);
+                    
+                }
+            }
+            .linkSocialNetwork:hover {
+                background-color: var(--blue);
+            }
+        }
+        .btnMode {
+            // width: 56px;
+            // height: 32px;
+            // border: solid 1px var(--black);
+            // border-radius: 16px;
+            // background-color: var(--gray);
+            // position: relative;
+            // cursor: pointer;
+            // .containerIconMode {
+            //     width: 24px;
+            //     height: 24px;
+            //     background-color: var(--green);
+            //     border-radius: 50%;
+            //     position: absolute;
+            //     top: 50%;
+            //     transform: translate(0, -50%);
+            //     img {
+            //         display: inline-block;
+            //         width: 12px;
+            //         height: 12px;
+            //         margin: 6px;
+            //     }
+            // }
+        }
+    }
+    .footerListLink {
+        display: block;
+        .listLinkTitle {
+            margin-bottom: 24px;
+        }
+        .listLinkItem {
+            margin-bottom: 16px;
+        }
+        .listLinkItem>a {
+            text-decoration: none;
+            @include linkItem;
+        }
+        .listLinkItem>a:hover {
+            color: var(--green);
+            text-decoration: underline;
+        }
+    }
+}
