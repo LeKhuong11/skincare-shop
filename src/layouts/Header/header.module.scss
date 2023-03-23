@@ -42,9 +42,8 @@
                 align-items: center;
             }
         }
-        
-        
     }
+    
     & .navigationFeature {
         &>ul {
             display: flex;
@@ -76,6 +75,7 @@
                     }
                 }
             }
+            
             & .navigate {
                 display: flex;
                 align-items: center;

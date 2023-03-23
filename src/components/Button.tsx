@@ -20,6 +20,10 @@ const ContainerStyled = styled.div`
     }
     & .large {
         width: 452px;
+        
+        @media only screen and (max-width: 768px) {
+            width: 380px;
+        }
     }
     & .medium {
         width: 200px;

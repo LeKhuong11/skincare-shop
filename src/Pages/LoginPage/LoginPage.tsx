@@ -13,6 +13,9 @@ const ContainerStyled = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    & input {
+      margin-top: 10px;
+    }
     @media only screen and (max-width: 1024px) {
       padding: 0 15%;
     }

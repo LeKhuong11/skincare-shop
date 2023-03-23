@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Button from './Button'
+import Input from './Input'
 
 const ContainerStyled = styled.div`
     background-color: var(--gray);
@@ -55,7 +56,7 @@ function FormSignup() {
             <p>- Our Newsletter</p>
             <h2>Sign Up to our Newsletter</h2>
             <form>
-                <input type="text" placeholder='Your Email' />
+                <Input type="text" placehoder='Your Email' />
                 <Button type="medium" content="Sign Up" />
             </form>
         </div>

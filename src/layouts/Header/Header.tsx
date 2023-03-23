@@ -7,6 +7,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { FaBars, FaTimes } from 'react-icons/fa';
 import root from './header.module.scss'
 import { Logo } from '../../assets/Logo';
+import { Badge } from 'antd';
 
 function Header() {
     const divRefMenu = useRef<any>();
@@ -40,7 +41,7 @@ function Header() {
                             <NavLink to="">Masks</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/category">Eye Care</NavLink>
+                            <NavLink to="category">Eye Care</NavLink>
                         </li>
                         <li>
                             <NavLink to="">Moisturizers</NavLink>
@@ -58,13 +59,13 @@ function Header() {
                     </ul>
                 </li>
                 <li>
-                    <NavLink to="/blog">Blog</NavLink>
+                    <NavLink to="about">About</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/about">About</NavLink>
+                    <NavLink to="contact">Contact</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/contact">Contact</NavLink>
+                    <NavLink to="faq">FAQ</NavLink>
                 </li>
             </ul>
         </div>
@@ -78,9 +79,11 @@ function Header() {
                         <BiSearch fontSize={23} />
                     </Link>
                 </li>
-                <li>
+                <li className='shopping-cart'>
                     <Link to="shopping-cart">
-                        <BsCart2 fontSize={21} fontWeight={550} style={{marginBottom: 3}}/>
+                        <Badge style={{marginTop: 0}} size="small" count={5} offset={[10, 10]}>
+                            <BsCart2 fontSize={21} fontWeight={550} style={{marginBottom: 3}}/>
+                        </Badge>
                     </Link>
                 </li>
                 <li>

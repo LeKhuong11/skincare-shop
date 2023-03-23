@@ -11,8 +11,12 @@ const ContainerStyled = styled.div`
 
     @media only screen and (max-width: 768px) {
         h2 {
-        font-size: 25px;
-        line-height: 56px;
+          font-size: 25px;
+          line-height: 56px;
+          text-align: center;
+        }
+        h5 {
+          text-align: center;
         }
     }
 `

@@ -26,7 +26,6 @@ const ContaierStyled = styled.div`
     & main {
         .started {
             padding: 5% 10%;
-          
             display: grid;
             grid-template: 1fr / 1fr 1fr;
             align-items: center;
@@ -63,7 +62,6 @@ const ContaierStyled = styled.div`
             @media only screen and (max-width: 1024px) {
               padding: 5% 0;
               gap: 0;
-          
               display: flex;
               flex-direction: column;
           
@@ -88,12 +86,10 @@ const ContaierStyled = styled.div`
                 display: grid;
                 grid-template: 1fr / 1fr 1fr 1fr;
                 gap: 20px;
-        
                 padding: 20px;
         
                 @media only screen and (max-width: 1024px) {
                     grid-template: 1fr 1fr 1fr / 1fr;
-        
                     padding: 0;
                 }
 
@@ -109,8 +105,6 @@ const ContaierStyled = styled.div`
                 
                         padding: 15px;
                         border-radius: 50%;
-                
-                        @extend %flex-contenCenter-itemCenter;
                 
                         svg {
                             font-size: 32px;
@@ -134,7 +128,7 @@ function AboutPage() {
 
     useLayoutEffect(() => {
         function updateSize() {
-        setSize(window.innerWidth);
+            setSize(window.innerWidth);
         }
         window.addEventListener("resize", updateSize);
         updateSize();
