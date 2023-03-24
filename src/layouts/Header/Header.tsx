@@ -27,36 +27,8 @@ function Header() {
                 <li>
                     <NavLink to="/">Home</NavLink>
                 </li>
-                <li className={root.navigate}>
-                    <NavLink to="">Categories </NavLink>
-                    <RiArrowDropDownLine />
-                    <ul>
-                        <li>
-                            <NavLink to="">On Sale</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="">Featured</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="">Masks</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="category">Eye Care</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="">Moisturizers</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="">Treatments </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="">Night Care </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="">Sun Care </NavLink>
-                        </li>
-                        
-                    </ul>
+                <li>
+                    <NavLink to="products">Products </NavLink>
                 </li>
                 <li>
                     <NavLink to="about">About</NavLink>
