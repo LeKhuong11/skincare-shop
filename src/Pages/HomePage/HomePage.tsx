@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BsBagDash, BsDroplet, BsMoon, BsSun } from 'react-icons/bs'
 import { FiEye, FiShield } from 'react-icons/fi'
 import styled from 'styled-components'
@@ -10,6 +10,9 @@ import { FaHive } from 'react-icons/fa'
 import Categories from '../../components/Categories'
 import CardItem from '../../components/CardItem'
 import TitleSection from '../../components/TitleSection'
+import { useAppSelector } from '../../redux/store'
+import { IProducts } from '../../redux/slice/productsSilce'
+import { Link } from 'react-router-dom'
 
 
 
@@ -144,13 +147,17 @@ const theCategories = [
 ]
 
 function HomePage() {
+  const { products } = useAppSelector(state => state.products)
+  const [ listProducts, setListProducts ] = useState<IProducts[]>(products)
   return (
     <ContainerStyled>
        <div className='homeAds'>
         <section>
           <div className='heroContent'>
               <TitleSection title="We Offer the Best Products for your Skin" subTitle="Skincare Products"/>
-              <Button type='medium' content='Shop Now' />
+              <Link to="../products">
+                <Button type='medium' content='Shop Now' />
+              </Link>
           </div>
           <div className='infProduct'>
             <img src={Image} alt="product"/>
@@ -174,18 +181,19 @@ function HomePage() {
             <ButtonScroll />
           </div>
           <div className='products'>
-            <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-            <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-            <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
-            <CardItem bgColor="rgba(0, 204, 150, 0.1)" color="#00cc96" />
-            <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-            <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-            <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
-            <CardItem bgColor="rgba(0, 204, 150, 0.1)" color="#00cc96" />
-            <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-            <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-            <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
-            <CardItem bgColor="rgba(0, 204, 150, 0.1)" color="#00cc96" />
+            {listProducts.map(item => (
+              <CardItem 
+                  key={item._id}
+                  id={item._id}
+                  bgColor={item.bgColor}
+                  color={item.color}
+                  star={item.star}
+                  nameProduct={item.name}
+                  imageProduct={item.img}
+                  price={item.price}
+                  oldPrice={item.oldPrice}
+              />
+              ))}
           </div>
        </div>
        <FormSignup />

@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
 import styled from "styled-components";
+import { updateCart } from "../../../redux/slice/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 
-const productsDemo = require('../../../assets/product.png')
+interface ICartItem {
+    id: string
+    img: string
+    name: string
+    price: number
+    quantity: number
+    onClick: any
+}
+
 const ContainerStyled = styled.div`
     display: flex;
     align-items: center;
@@ -105,23 +115,57 @@ const ContainerStyled = styled.div`
     }
 `
 
-export default function CartItem() {
+export default function CartItem({id, onClick, img, price, name, quantity}: ICartItem) {
+    const dispatch = useAppDispatch()
+    const { cart } = useAppSelector(state => state.cart)
+    const [ countItem, setCountItem ] = useState(quantity)
+
+    const handleClickDecrease = () => {
+        if(countItem > 1) {
+            setCountItem(countItem - 1)
+            // cart.forEach(item => {
+            //     if(item._id === id) {
+            //         item.quantity = countItem
+            //     }
+            // })
+            // dispatch(updateCart(cart))
+        }
+    }
+
+    const handleClickIncrease = () => {
+        if(countItem < 10) {
+            setCountItem(countItem + 1)
+            // cart.forEach(item => {
+            //     if(item._id === id) {
+            //         item.quantity = countItem
+            //     }
+            // })
+            // dispatch(updateCart(cart))
+        }
+    }
+
   return (
     <ContainerStyled>
       <div className="image-product">
-        <img src={productsDemo} alt="product" width={45} height={75} />
+        <img src={img} alt="product" width={45} height={75} />
       </div>
 
       <div className='infoProduct'>
-        <h4>Sleepless Night 10 g</h4>
-        <p>$97</p>
+        <h4>{name}</h4>
+        <p>${price}</p>
         <div className="amount">
             <div className='button'>
-                <button className='buttonDecrease'><BsChevronLeft/></button>
-                <span>3</span>
-                <button className='buttonIncrease'><BsChevronRight/></button>
+                <button
+                    className='buttonDecrease' 
+                    onClick={() => handleClickDecrease()}
+                ><BsChevronLeft/></button>
+                <span>{countItem}</span>
+                <button 
+                    className='buttonIncrease' 
+                    onClick={() => handleClickIncrease()}
+                ><BsChevronRight/></button>
             </div>
-            <div>
+            <div style={{cursor: 'pointer'}} onClick={() => onClick()}>
                 <FaTimes size={25} />
             </div>
         </div>

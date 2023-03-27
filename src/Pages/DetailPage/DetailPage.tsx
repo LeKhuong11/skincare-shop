@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Breadcrumb, message } from 'antd'
 import { AiOutlineRise } from 'react-icons/ai'
 import { BsChevronLeft, BsChevronRight, BsDroplet } from 'react-icons/bs'
 import { FiHeart, FiShield } from 'react-icons/fi'
+import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Button from '../../components/Button'
 import CardItem from '../../components/CardItem'
 import FormSignup from '../../components/FormSignUp'
 import TitleSection from '../../components/TitleSection'
+import axios from 'axios'
+import Loading from '../../components/Loading'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
+import { addCart } from '../../redux/slice/cartSlice'
 
-
-const productImg = require('../../assets/product.png')
 const ContainerStyled = styled.div`
 
    & .product {
@@ -72,8 +76,15 @@ const ContainerStyled = styled.div`
                     margin-right: 15px;
                 }
             }
-
             &>div:nth-child(3) {
+                display: flex;
+                align-items: center;
+
+                & p {
+                    margin-right: 15px;
+                }
+            }
+            & .buttons {
                 display: flex;
                 margin-top: 30px;
                 align-items: center;
@@ -225,102 +236,213 @@ const ContainerStyled = styled.div`
     }
 `
 
+const crumbs = [
+        {
+            title: 'Home Page',
+          },
+          {
+            title: <Link to="../../products">Products</Link>,
+          },
+          {
+            title: <Link to="">Sun Care</Link>,
+          },
+          {
+            title: 'Sun Cream 950 ml',
+          },
+    ]
+
 function DetailPage() {
+    const { id } = useParams();
+    const dispatch = useAppDispatch();
+    const { cart } = useAppSelector(state => state.cart)
+    const [ loading, setLoading ] = useState(false);
+    const [ detailProduct, setDetailProuct ] = useState<any>();
+    const [ countItem, setCountItem ] = useState(1)
+
+    //get product by id 
+    useEffect(() => {
+        setLoading(true)
+        axios.get(`https://backend-skincare-shop.vercel.app/api/products/${id}`)
+            .then(response => {
+                setDetailProuct(response.data)
+                setLoading(false)
+            })
+    }, [])
+
+    const handleClickAddToCart = (id: string) => {
+        //Check if the item is in the cart or not, if it has will return true
+        const checkItemInArray = cart.find(item => item._id === id)
+        
+        //If 'checkItemInArray' is false, the product will be added to the cart  
+        //If 'checkItemInArray' is true, it means there is a product in the cart
+        if(checkItemInArray){
+            message.warning("There are product in your cart");
+            return
+        }
+        //coppy new array and added field "quantity" into newProductAddToCart
+        const newProductAddToCart = detailProduct
+        newProductAddToCart.quantity = countItem;
+        dispatch(addCart(newProductAddToCart))
+        message.success("Added product to cart!")
+    }
+
   return (
     <ContainerStyled>
-        <div className='product'>
-            <div>
-                <div className='image-product'>
+        {loading ? <Loading /> : 
+            <>
+                <div className='crumbs'>
+                    <Breadcrumb style={{fontFamily: 'Montserrat'}} items={crumbs} />
+                </div>
+                <div className='product'>
                     <div>
-                        <img src={productImg} alt='product' />
-                    </div>
-                    <div>
-                        <img src={productImg} alt='product' />
-                    </div>
-                    <div>
-                        <img src={productImg} alt='product' />
-                    </div>
-                </div>
-                <div className='img-main-product'>
-                    <span>
-                        <img src={productImg} alt='product' />
-                    </span>
-                </div>
-            </div>
-            <div className='info-product'>
-                <div>
-                    <TitleSection title='Sun Cream' subTitle='Selling Fast' />
-                </div>
-                <div>
-                    <span><h6 style={{color: '#FFC123', fontWeight: 550}}>EYE CARE</h6></span>
-                    <h5>$20</h5>
-                </div>
-                <div>
-                    <div className="amount">
-                        <div className='button'>
-                            <button className='buttonDecrease'><BsChevronLeft/></button>
-                            <span>3</span>
-                            <button className='buttonIncrease'><BsChevronRight/></button>
+                        <div className='image-product'>
+                            <div>
+                                <img src={detailProduct?.img.url} alt='product' />
+                            </div>
+                            <div>
+                                <img src={detailProduct?.img.url} alt='product' />
+                            </div>
+                            <div>
+                                <img src={detailProduct?.img.url} alt='product' />
+                            </div>
+                        </div>
+                        <div className='img-main-product'>
+                            <span>
+                                <img src={detailProduct?.img.url} alt='product' />
+                            </span>
                         </div>
                     </div>
-                    <Button type='medium' content='Add to Cart' />
-                    <div className='heart'>
-                        <FiHeart size={25} />
+                    <div className='info-product'>
+                        <div>
+                            <TitleSection title={detailProduct?.name} subTitle='Selling Fast' />
+                        </div>
+                        <div>
+                            <span style={{color: detailProduct?.bgColor}}><h6 style={{color: detailProduct?.color, fontWeight: 550}}>EYE CARE</h6></span>
+                            <h5>${detailProduct?.price}</h5>
+                        </div>
+                        <div>
+                            <p>Quantity: </p> 
+                            <h5>{detailProduct?.amount}</h5>
+                        </div>
+                        <div className='buttons'>
+                            <div className="amount">
+                                <div className='button'>
+                                    <button 
+                                        className='buttonDecrease' 
+                                        onClick={() => countItem > 1 && setCountItem(countItem - 1)}
+                                    ><BsChevronLeft/></button>
+                                    <span>{countItem}</span>
+                                    <button 
+                                        className='buttonIncrease' 
+                                        onClick={() => countItem < 10 && setCountItem(countItem + 1)}
+                                    ><BsChevronRight/></button>
+                                </div>
+                            </div>
+                            <Button 
+                                type='medium' 
+                                content='Add to Cart' 
+                                onClick={() => handleClickAddToCart(`${id}`)}
+                            />
+                            <div className='heart'>
+                                <FiHeart size={25} />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div className='product-features'>
-            <div className='title'>
-                <TitleSection title='Explore the Features' subTitle='Product Features' />
-            </div>
-            <div>
-                <div className='features'>
-                    <div className='icon'>
-                        <BsDroplet size={26} />
+                <div className='product-features'>
+                    <div className='title'>
+                        <TitleSection title='Explore the Features' subTitle='Product Features' />
                     </div>
-                    <span>
-                        <h5>Natural</h5>
-                        <p>We are using natural ingredients only when creating our products.</p>
-                    </span>
-                </div>
-                <div className='features'>
-                    <div className='icon'>
-                        <FiShield size={26} />
+                    <div>
+                        <div className='features'>
+                            <div className='icon'>
+                                <BsDroplet size={26} />
+                            </div>
+                            <span>
+                                <h5>Natural</h5>
+                                <p>We are using natural ingredients only when creating our products.</p>
+                            </span>
+                        </div>
+                        <div className='features'>
+                            <div className='icon'>
+                                <FiShield size={26} />
+                            </div>
+                            <span>
+                                <h5>Full Protection</h5>
+                                <p>This product provides broad spectrum SPF 50 and blue light protection.</p>
+                            </span>
+                        </div>
+                        <div className='features'>
+                            <div className='icon'>
+                                <AiOutlineRise size={26} />
+                            </div>
+                            <span> 
+                            </span>
+                        </div>
                     </div>
-                    <span>
-                        <h5>Full Protection</h5>
-                        <p>This product provides broad spectrum SPF 50 and blue light protection.</p>
-                    </span>
                 </div>
-                <div className='features'>
-                    <div className='icon'>
-                        <AiOutlineRise size={26} />
+
+                <div className='product-other'>
+                    <div>
+                        <TitleSection title='Related Products' subTitle='Explore More' />
                     </div>
-                    <span>
-                        <h5>Trending</h5>
-                        <p>It is one of our most popular products that we have on offer.</p>
-                    </span>
+                    <div className='products'>
+                        <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
+                        <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
+                        <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
+                        <CardItem bgColor="rgba(0, 204, 150, 0.1)" color="#00cc96" />
+                        <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
+                        <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
+                        <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div className='product-other'>
-            <div>
-                <TitleSection title='Related Products' subTitle='Explore More' />
-            </div>
-            <div className='products'>
-                <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-                <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-                <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
-                <CardItem bgColor="rgba(0, 204, 150, 0.1)" color="#00cc96" />
-                <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-                <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-                <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
-            </div>
-        </div>
-        <FormSignup />
+                <FormSignup />
+            </>
+        }
     </ContainerStyled>
   )
 }
+
+// function addToCart(product, navigate, dispatch, AllItems) {
+
+  
+//     let tempProduct = [];
+//     let getQuantity = 0;
+
+//     //create a object product new
+//     const productAdded = {  
+//       id: product._id,
+//       name: product.name,
+//       img: product.img,
+//       size: product.size,
+//       price: product.price,
+//       quantity: 1
+//     }
+//     if(AllItems) {
+//       tempProduct = AllItems.filter(item => {
+//           return item.id.includes(productAdded.id)
+//       })
+//     }
+
+//     //kiem tra neu trong mang co trung nhau thi tang so luong len va xoa phan tu
+//     if(tempProduct.length >= 1){
+//         getQuantity = tempProduct[0].quantity;
+//         productAdded.quantity = getQuantity + 1
+
+//         // xoa san pham bi trung sau do update san pham moi len localStorage da cap nhat so luong va gia
+//         for (let i = 0; i < AllItems.length; i++) {
+//             if(AllItems[i].id === productAdded.id) {    
+//                 AllItems.splice(i, 1);
+//             }
+//         }
+//         AllItems.push(productAdded)
+//         // dispatch(cartUpdate(AllItems))
+//         console.log(productAdded);
+//     }
+//     else {
+//         // dispatch(cart(productAdded))
+//     }
+ 
+// }
 
 export default DetailPage

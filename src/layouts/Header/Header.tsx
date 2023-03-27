@@ -3,13 +3,14 @@ import { Link, NavLink } from 'react-router-dom'
 import { BiSearch } from "react-icons/bi";
 import { BsCart2 } from "react-icons/bs";
 import { FiUser } from "react-icons/fi";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import { FaBars, FaTimes } from 'react-icons/fa';
 import root from './header.module.scss'
 import { Logo } from '../../assets/Logo';
 import { Badge } from 'antd';
+import { useAppSelector } from '../../redux/store';
 
 function Header() {
+    const { cart } = useAppSelector(state => state.cart)
     const divRefMenu = useRef<any>();
     const showNavbar = () => {
         divRefMenu.current.classList.toggle(root['reponsive_navbar']);
@@ -53,7 +54,7 @@ function Header() {
                 </li>
                 <li className='shopping-cart'>
                     <Link to="shopping-cart">
-                        <Badge style={{marginTop: 0}} size="small" count={5} offset={[10, 10]}>
+                        <Badge style={{marginTop: 0}} size="small" count={cart.length} offset={[10, 10]}>
                             <BsCart2 fontSize={21} fontWeight={550} style={{marginBottom: 3}}/>
                         </Badge>
                     </Link>

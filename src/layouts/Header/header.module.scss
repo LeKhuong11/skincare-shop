@@ -4,6 +4,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #fbfcff;
+    padding: 0 4%;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
     & .navigation {
         padding: 7px;
@@ -93,7 +99,7 @@
 
 @media only screen and (max-width: 1024px) {
     .header {   
-
+        width: 100%;
         & .btn {
             display: block;
             opacity: 1;

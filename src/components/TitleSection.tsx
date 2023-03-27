@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const ContainerStyled = styled.div`
-    padding: 3% 0;
+    padding: 1% 0 3%;
 
     h5 {
         color: var(--blue);

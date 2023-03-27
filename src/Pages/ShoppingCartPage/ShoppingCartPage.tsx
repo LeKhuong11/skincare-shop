@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import FormSignup from '../../components/FormSignUp'
 import TitleSection from '../../components/TitleSection'
+import { clearCart, IProductsCart, updateCart } from '../../redux/slice/cartSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
 import CartItem from './components/CartItem'
 import Totals from './components/Totals'
 
@@ -50,6 +52,22 @@ const ContainerStyled = styled.div`
     }
 `
 function ShoppingCartPage() {
+    const dispath = useAppDispatch()
+    const { cart } = useAppSelector(state => state.cart)
+    const [ listCartItem, setListCartItem ] = useState<IProductsCart[]>(cart)
+
+    const handleClickRemoveItemInCart = (id: string) => {
+        const newCart = cart.filter(item => {
+            return !item._id.includes(id)
+        })
+        dispath(updateCart(newCart));
+        setListCartItem(newCart);
+        
+    }
+
+    const handleClickClearCart = () => {
+        dispath(clearCart())
+    }
   return (
     <ContainerStyled>
         <div className='title'>
@@ -57,14 +75,22 @@ function ShoppingCartPage() {
                 <TitleSection title="Shopping Cart" subTitle="Your Cart"/>
             </div>
             <div>
-                <button>Clear All</button>
+                <button onClick={handleClickClearCart}>Clear All</button>
             </div>
         </div>
         <div className='cartContent'>
             <div className='cartItems'>
-                <CartItem />
-                <CartItem />
-                <CartItem />
+                {listCartItem.map(item => (
+                    <CartItem 
+                        key={item._id}
+                        id={item._id}
+                        img={item.img.url}
+                        name={item.name}
+                        price={item.price}
+                        quantity={item.quantity}
+                        onClick={() => handleClickRemoveItemInCart(`${item._id}`)}
+                    />
+                ))}
             </div>
             <Totals />
       </div>

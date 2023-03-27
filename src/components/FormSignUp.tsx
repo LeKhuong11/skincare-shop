@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useAppSelector } from '../redux/store'
 import Button from './Button'
 import Input from './Input'
 
@@ -50,17 +51,22 @@ const ContainerStyled = styled.div`
 `
 
 function FormSignup() {
+    const { user } = useAppSelector(state => state.user)
   return (
-    <ContainerStyled>
-        <div>
-            <p>- Our Newsletter</p>
-            <h2>Sign Up to our Newsletter</h2>
-            <form>
-                <Input type="text" placehoder='Your Email' />
-                <Button type="medium" content="Sign Up" />
-            </form>
-        </div>
-    </ContainerStyled>
+   <>
+    {user ? <div></div> : 
+         <ContainerStyled>
+            <div>
+                <p>- Our Newsletter</p>
+                <h2>Sign Up to our Newsletter</h2>
+                <form>
+                    <Input type="text" placehoder='Your Email' />
+                    <Button type="medium" content="Sign Up" />
+                </form>
+            </div>
+        </ContainerStyled>
+    }
+   </>
   )
 }
 

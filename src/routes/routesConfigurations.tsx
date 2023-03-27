@@ -1,10 +1,12 @@
 import { useRoutes } from "react-router-dom"
 import AboutPage from "../Pages/AboutPage/AboutPage"
 import ContactPage from "../Pages/ContactPage/ContactPage"
+import DashboardPage from "../Pages/DashboardPage/DashboardPage"
 import DetailPage from "../Pages/DetailPage/DetailPage"
 import FAQPage from "../Pages/FAQpage/FaqPage"
 import HomePage from "../Pages/HomePage/HomePage"
 import LoginPage from "../Pages/LoginPage/LoginPage"
+import ProductPage from "../Pages/ProductsPage/ProductPage"
 import SearchPage from "../Pages/SearchPage/SearchPage"
 import ShoppingCartPage from "../Pages/ShoppingCartPage/ShoppingCartPage"
 import SignUppage from "../Pages/SignUpPage/SignUpPage"
@@ -20,6 +22,10 @@ export function RoutesConfigurations() {
         {
             path: '/',
             element: <HomePage />,
+        },
+        {
+            path: 'products',
+            element: <ProductPage />
         },
         {
             path: 'search',
@@ -50,9 +56,13 @@ export function RoutesConfigurations() {
             element: <FAQPage />
         },
         {
-            path: 'detail/:id',
+            path: 'products/detail/:id',
             element: <DetailPage />
-        }
+        },
+        {
+            path: 'dashboard',
+            element: <DashboardPage />
+        },
     ]
     return useRoutes(element)
 }

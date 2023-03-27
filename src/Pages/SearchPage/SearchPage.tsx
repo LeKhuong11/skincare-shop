@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CardItem from '../../components/CardItem'
 import FormSignup from '../../components/FormSignUp'
+import { IProducts } from '../../redux/slice/productsSilce'
+import { useAppSelector } from '../../redux/store'
 import root from './search.module.scss'
 
 function SearchPage() {
+  const { products } = useAppSelector(state => state.products)
+  const [ listProducts, setListProducts ] = useState<IProducts[]>(products)
+  
+  console.log(listProducts);
+  
   return (
     <div className={root.searchPage}>
       <div className={root.titlePage}>
@@ -43,18 +50,18 @@ function SearchPage() {
         </div>
       </div>
       <div className={root.products}>
-        <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-        <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-        <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
-        <CardItem bgColor="rgba(0, 204, 150, 0.1)" color="#00cc96" />
-        <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-        <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-        <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
-        <CardItem bgColor="rgba(0, 204, 150, 0.1)" color="#00cc96" />
-        <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-        <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-        <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
-        <CardItem bgColor="rgba(0, 204, 150, 0.1)" color="#00cc96" />
+        {listProducts.map(item => (
+          <CardItem 
+            key={item._id}
+            id={item._id}
+            bgColor={item.bgColor}
+            star={item.star}
+            color={item.color}
+            nameProduct={item.name}
+            imageProduct={item.img}
+            price={item.price}
+          />
+        ))}
       </div>
       <FormSignup />
     </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const ContainerStyled = styled.div`
-
+    margin-right: 15px;
     & button {
         display: flex;
         flex-direction: column;
@@ -49,7 +49,7 @@ interface IButton {
 function Button({type, content, onClick}: IButton) {
   return (
     <ContainerStyled>
-        <button className={type}>
+        <button className={type} onClick={onClick}>
             {content}
         </button>
     </ContainerStyled>

@@ -16,15 +16,7 @@ interface UserState {
     user: IUser | null
 }
 const initialState: any = {
-    user: {
-        id: 'ukf2335236ss',
-        displayName: 'Khuong Le',
-        email: '11lekhuong@gmail.com',
-        firstName: 'Le',
-        lastName: 'Khuong',
-        isAdmin: 1,
-    
-    }
+    user: null
 } as UserState
 
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Button from '../../../components/Button'
+import { useAppSelector } from '../../../redux/store'
 
 const ContainerStyled = styled.div`
     width: 30%;
@@ -54,6 +55,14 @@ const ContainerStyled = styled.div`
 `
 
 export default function Totals() {
+    const { cart } = useAppSelector(state => state.cart)
+    let total: number = 0;
+    const tax = 20.73;
+    const shipping = 15;
+    cart.forEach(item => {
+        total += item.price * item.quantity
+    })
+    
   return (
     <ContainerStyled>
         <h2>Cart Total</h2>
@@ -61,19 +70,19 @@ export default function Totals() {
         <div className='subtotal'>
             <div className='subtotalItems'>
                 <span>Subtotal:</span>
-                <span>$209</span>
+                <span>${total}</span>
             </div>
             <div className='subtotalItems'>
                 <span>Tax:</span>
-                <span>$20.73</span>
+                <span>${tax}</span>
             </div>
             <div className='subtotalItems'>
                 <span>Shipping:</span>
-                <span>$15</span>
+                <span>${shipping}</span>
             </div>
             <div className='totalItems'>
                 <span>Total:</span>
-                <span>$224</span>
+                <span>${total + tax + shipping}</span>
             </div>
         </div>
         <Button type='medium' content='checkout' />
