@@ -310,7 +310,7 @@ function DetailPage() {
         cart = [...cart, newProductAddToCart]
         
         
-        await axios.put(`http://localhost:3000/auth/update-user/${user._id}`, {
+        await axios.put(`https://backend-skincare-shop.vercel.app/${user._id}`, {
             cart: cart
         }) 
             .then(res => {

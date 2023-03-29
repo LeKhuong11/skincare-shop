@@ -84,7 +84,7 @@ export default function LoginPage() {
   const handleClickLogin = async (e: any) => {
     e.preventDefault();
     try {
-      const {data, status} = await axios.post<User>('http://localhost:3000/auth/login',
+      const {data, status} = await axios.post<User>('https://backend-skincare-shop.vercel.app/auth/login',
         {
           userName: login.username,
           password: login.password
