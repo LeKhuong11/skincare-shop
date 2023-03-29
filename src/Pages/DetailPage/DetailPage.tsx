@@ -270,7 +270,7 @@ function DetailPage() {
     const [ loadingAddToCart, setLoadingAddToCart ] = useState(false)
     const [ detailProduct, setDetailProuct ] = useState<any>();
     const [ countItem, setCountItem ] = useState(1)
-    let cart: IProductsCart[] = user.cart;
+    let cart: IProductsCart[] = user?.cart;
     //get product by id 
     useEffect(() => {
         setLoading(true)

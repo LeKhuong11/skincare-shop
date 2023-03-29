@@ -75,7 +75,7 @@ function ShoppingCartPage() {
         const newCart = listCartUser.filter(item => {
             return !item._id.includes(id)
         })
-        await axios.put(`https://backend-skincare-shop.vercel.app/${user._id}`, {
+        await axios.put(`https://backend-skincare-shop.vercel.app/auth/update-user/${user._id}`, {
             cart: newCart
         }) 
             .then(res => {
@@ -91,7 +91,7 @@ function ShoppingCartPage() {
     }
 
     const handleClickClearCart = async () => {
-        await axios.put(`https://backend-skincare-shop.vercel.app/${user._id}`, {
+        await axios.put(`https://backend-skincare-shop.vercel.app/auth/update-user/${user._id}`, {
             cart: []
         }) 
             .then(res => {
