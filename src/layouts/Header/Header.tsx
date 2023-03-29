@@ -6,11 +6,12 @@ import { FiUser } from "react-icons/fi";
 import { FaBars, FaTimes } from 'react-icons/fa';
 import root from './header.module.scss'
 import { Logo } from '../../assets/Logo';
-import { Badge } from 'antd';
+import { Avatar, Badge } from 'antd';
 import { useAppSelector } from '../../redux/store';
 
 function Header() {
     const { cart } = useAppSelector(state => state.cart)
+    const { user } = useAppSelector(state => state.user)
     const divRefMenu = useRef<any>();
     const showNavbar = () => {
         divRefMenu.current.classList.toggle(root['reponsive_navbar']);
@@ -54,15 +55,24 @@ function Header() {
                 </li>
                 <li className='shopping-cart'>
                     <Link to="shopping-cart">
-                        <Badge style={{marginTop: 0}} size="small" count={cart.length} offset={[10, 10]}>
+                        <Badge style={{marginTop: 0}} size="small" count={user ? user?.cart.length : ''} offset={[10, 10]}>
                             <BsCart2 fontSize={21} fontWeight={550} style={{marginBottom: 3}}/>
                         </Badge>
                     </Link>
                 </li>
                 <li>
-                    <Link to="login">
-                        <FiUser fontSize={22}/>
-                    </Link>
+                    {user ? 
+                        <Link to="dashboard">
+                            <Avatar 
+                                size={25} 
+                                src={user?.avatar}
+                                style={{background: 'orange'}}
+                            >{user?.avatar || user?.displayName.charAt(0).toUpperCase()}</Avatar>
+                        </Link> : 
+                        <Link to="login">
+                            <FiUser fontSize={22}/>
+                        </Link>
+                    }
                 </li>
             </ul>
         </div>

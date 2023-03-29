@@ -4,7 +4,9 @@ import styled from 'styled-components'
 interface IInput {
   type: string,
   placehoder?: string,
-
+  setValue?: any, 
+  name?: string,
+  require?: boolean
 }
 
 const InputStyled = styled.input`
@@ -25,11 +27,14 @@ const InputStyled = styled.input`
 
 `
 
-function Input({type, placehoder}: IInput) {
+function Input({type, placehoder, setValue, name, require}: IInput) {
   return (
     <InputStyled 
-      type={type}
-      placeholder={placehoder}
+      onChange={(e) => setValue(e.target)} 
+      type={type} 
+      placeholder={placehoder} 
+      name={name}
+      required={require}
     />
   )
 }

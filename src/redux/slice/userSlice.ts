@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
+import { IProductsCart } from "./cartSlice";
 
 
 export interface IUser {
@@ -10,7 +11,8 @@ export interface IUser {
     isAdmin: number;
     lastName: string;
     phone: number;
-    avatar?: null
+    cart: IProductsCart
+    avatar?: string | null
 }
 interface UserState {
     user: IUser | null
@@ -20,13 +22,6 @@ const initialState: any = {
 } as UserState
 
 
-//Fetching data from firebase
-export const fetchUser = createAsyncThunk(
-    "user/fetch",
-    async () => {
-       
-
-})
 
 export const userSlice = createSlice({
     name: 'user',
@@ -34,6 +29,9 @@ export const userSlice = createSlice({
     reducers: {
         addUser: (state, actions) => {
             state.user = actions.payload
+        },
+        updateCartUser: (state, actions) => {
+            state.user.cart = actions.payload
         },
         deleteUser: (state) => {
             state.user = null
@@ -43,4 +41,4 @@ export const userSlice = createSlice({
 })
 
 export default userSlice;
-export const { deleteUser } = userSlice.actions;
+export const { addUser, deleteUser, updateCartUser } = userSlice.actions;

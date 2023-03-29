@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Breadcrumb, message } from 'antd'
+import { Breadcrumb, message, Modal, Spin } from 'antd'
 import { AiOutlineRise } from 'react-icons/ai'
 import { BsChevronLeft, BsChevronRight, BsDroplet } from 'react-icons/bs'
 import { FiHeart, FiShield } from 'react-icons/fi'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Button from '../../components/Button'
 import CardItem from '../../components/CardItem'
@@ -12,8 +12,12 @@ import TitleSection from '../../components/TitleSection'
 import axios from 'axios'
 import Loading from '../../components/Loading'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
-import { addCart } from '../../redux/slice/cartSlice'
+import { IProductsCart } from '../../redux/slice/cartSlice'
+import { ExclamationCircleFilled } from '@ant-design/icons';
+import { updateCartUser } from '../../redux/slice/userSlice'
 
+
+const { confirm } = Modal;
 const ContainerStyled = styled.div`
 
    & .product {
@@ -142,6 +146,11 @@ const ContainerStyled = styled.div`
                         }
                     }
                 }
+                & .button-add-to-cart {
+                    width: 210px;
+                    display: flex;
+                    justify-content: center;
+                }
             }
         }
 
@@ -252,13 +261,16 @@ const crumbs = [
     ]
 
 function DetailPage() {
-    const { id } = useParams();
     const dispatch = useAppDispatch();
-    const { cart } = useAppSelector(state => state.cart)
-    const [ loading, setLoading ] = useState(false);
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const { user } = useAppSelector(state => state.user)
+    // const { cart } = useAppSelector(state => state.cart)
+    const [ loading, setLoading ] = useState(false)
+    const [ loadingAddToCart, setLoadingAddToCart ] = useState(false)
     const [ detailProduct, setDetailProuct ] = useState<any>();
     const [ countItem, setCountItem ] = useState(1)
-
+    let cart: IProductsCart[] = user.cart;
     //get product by id 
     useEffect(() => {
         setLoading(true)
@@ -269,7 +281,19 @@ function DetailPage() {
             })
     }, [])
 
-    const handleClickAddToCart = (id: string) => {
+    const handleClickAddToCart = async (id: string) => {
+        setLoadingAddToCart(true)    
+        if(!user) {
+            confirm({
+                title: 'You are not logged in?',
+                icon: <ExclamationCircleFilled />,
+                content: 'Go to Login page!',
+                onOk() {
+                  navigate('../login')
+                }
+              });
+              return
+        } 
         //Check if the item is in the cart or not, if it has will return true
         const checkItemInArray = cart.find(item => item._id === id)
         
@@ -277,15 +301,32 @@ function DetailPage() {
         //If 'checkItemInArray' is true, it means there is a product in the cart
         if(checkItemInArray){
             message.warning("There are product in your cart");
+            setLoadingAddToCart(false) 
             return
         }
         //coppy new array and added field "quantity" into newProductAddToCart
-        const newProductAddToCart = detailProduct
-        newProductAddToCart.quantity = countItem;
-        dispatch(addCart(newProductAddToCart))
-        message.success("Added product to cart!")
+        const newProductAddToCart: IProductsCart = detailProduct
+        newProductAddToCart.quantity = countItem
+        cart = [...cart, newProductAddToCart]
+        
+        
+        await axios.put(`http://localhost:3000/auth/update-user/${user._id}`, {
+            cart: cart
+        }) 
+            .then(res => {
+                dispatch(updateCartUser(cart))
+                message.success("Added product to cart!")
+            })
+            .catch(err => {
+                message.warning('Added product to cart fail!')
+                console.log(err);
+            })
+        setLoadingAddToCart(false)
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
   return (
     <ContainerStyled>
         {loading ? <Loading /> : 
@@ -338,11 +379,15 @@ function DetailPage() {
                                     ><BsChevronRight/></button>
                                 </div>
                             </div>
-                            <Button 
-                                type='medium' 
-                                content='Add to Cart' 
-                                onClick={() => handleClickAddToCart(`${id}`)}
-                            />
+                            <div className='button-add-to-cart'>
+                                {loadingAddToCart ? <Spin /> : 
+                                    <Button 
+                                        type='medium' 
+                                        content='Add to Cart' 
+                                        onClick={() => handleClickAddToCart(`${id}`)}
+                                    />
+                                }
+                            </div>
                             <div className='heart'>
                                 <FiHeart size={25} />
                             </div>

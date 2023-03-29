@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useAppSelector } from '../redux/store'
 import Button from './Button'
@@ -52,6 +53,7 @@ const ContainerStyled = styled.div`
 
 function FormSignup() {
     const { user } = useAppSelector(state => state.user)
+    const navigate = useNavigate();
   return (
    <>
     {user ? <div></div> : 
@@ -61,7 +63,7 @@ function FormSignup() {
                 <h2>Sign Up to our Newsletter</h2>
                 <form>
                     <Input type="text" placehoder='Your Email' />
-                    <Button type="medium" content="Sign Up" />
+                    <Button type="medium" content="Sign Up" onClick={() => navigate('../login')} />
                 </form>
             </div>
         </ContainerStyled>

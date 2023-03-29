@@ -1,10 +1,15 @@
+import { message } from 'antd'
+import axios from 'axios'
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import FormSignup from '../../components/FormSignUp'
+import Loading from '../../components/Loading'
 import TitleSection from '../../components/TitleSection'
-import { clearCart, IProductsCart, updateCart } from '../../redux/slice/cartSlice'
+import { IProductsCart } from '../../redux/slice/cartSlice'
+import { updateCartUser } from '../../redux/slice/userSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import CartItem from './components/CartItem'
+import NotFoundCart from './components/NotFoundCart'
 import Totals from './components/Totals'
 
 const ContainerStyled = styled.div`
@@ -36,6 +41,13 @@ const ContainerStyled = styled.div`
         justify-content: space-between;
         gap: 30px;
 
+        & .loading {
+            width: 100%;
+            display: flex;
+            align-items: self-start;
+            justify-content: center;
+        }
+
             @media screen and (max-width: 1024px) {
                 flex-direction: column;
             }
@@ -52,50 +64,83 @@ const ContainerStyled = styled.div`
     }
 `
 function ShoppingCartPage() {
-    const dispath = useAppDispatch()
-    const { cart } = useAppSelector(state => state.cart)
-    const [ listCartItem, setListCartItem ] = useState<IProductsCart[]>(cart)
+    const dispatch = useAppDispatch()
+    const { user } = useAppSelector(state => state.user)
+    const listCartUser: IProductsCart[] = user.cart
+    const [ loading, setLoading ] = useState(false)
+    const [ listCartItem, setListCartItem ] = useState<IProductsCart[] | null>(user?.cart.length ? user?.cart : [])
 
-    const handleClickRemoveItemInCart = (id: string) => {
-        const newCart = cart.filter(item => {
+    const handleClickRemoveItemInCart = async (id: string) => {
+        setLoading(true)
+        const newCart = listCartUser.filter(item => {
             return !item._id.includes(id)
         })
-        dispath(updateCart(newCart));
+        await axios.put(`http://localhost:3000/auth/update-user/${user._id}`, {
+            cart: newCart
+        }) 
+            .then(res => {
+                dispatch(updateCartUser(newCart))
+                message.success("Update cart susscessfully!")
+            })
+            .catch(err => {
+                message.warning('Update cart fail!')
+                console.log(err);
+            })
+        setLoading(false)
         setListCartItem(newCart);
-        
     }
 
-    const handleClickClearCart = () => {
-        dispath(clearCart())
+    const handleClickClearCart = async () => {
+        await axios.put(`http://localhost:3000/auth/update-user/${user._id}`, {
+            cart: []
+        }) 
+            .then(res => {
+                dispatch(updateCartUser([]))
+                message.success("Delete cart susscessfully!")
+            })
+            .catch(err => {
+                message.warning('Delete cart fail!')
+                console.log(err);
+            })
+        setListCartItem([])
     }
+    
   return (
-    <ContainerStyled>
-        <div className='title'>
-            <div>
-                <TitleSection title="Shopping Cart" subTitle="Your Cart"/>
-            </div>
-            <div>
-                <button onClick={handleClickClearCart}>Clear All</button>
-            </div>
-        </div>
-        <div className='cartContent'>
-            <div className='cartItems'>
-                {listCartItem.map(item => (
-                    <CartItem 
-                        key={item._id}
-                        id={item._id}
-                        img={item.img.url}
-                        name={item.name}
-                        price={item.price}
-                        quantity={item.quantity}
-                        onClick={() => handleClickRemoveItemInCart(`${item._id}`)}
-                    />
-                ))}
-            </div>
-            <Totals />
-      </div>
-      <FormSignup />
-    </ContainerStyled>
+    <>
+        {listCartItem?.length ? 
+            <ContainerStyled>
+                <div className='title'>
+                    <div>
+                        <TitleSection title="Shopping Cart" subTitle="Your Cart"/>
+                    </div>
+                    <div>
+                        <button onClick={handleClickClearCart}>Clear All</button>
+                    </div>
+                </div>
+                <div className='cartContent'>
+                    {loading ? 
+                        <div className='loading'>
+                            <Loading />
+                        </div> : 
+                        <div className='cartItems'>
+                            {listCartItem.map(item => (
+                                <CartItem 
+                                    key={item._id}
+                                    id={item._id}
+                                    img={item?.img?.url}
+                                    name={item.name}
+                                    price={item.price}
+                                    quantity={item.quantity}
+                                    onClick={() => handleClickRemoveItemInCart(`${item._id}`)}
+                                />
+                            ))}
+                        </div>}
+                    <Totals />
+                </div>
+            <FormSignup />
+            </ContainerStyled> : <NotFoundCart />
+        }
+    </>
   )
 }
 
