@@ -66,7 +66,7 @@ const ContainerStyled = styled.div`
 function ShoppingCartPage() {
     const dispatch = useAppDispatch()
     const { user } = useAppSelector(state => state.user)
-    const listCartUser: IProductsCart[] = user.cart
+    const listCartUser: IProductsCart[] = user?.cart
     const [ loading, setLoading ] = useState(false)
     const [ listCartItem, setListCartItem ] = useState<IProductsCart[] | null>(user?.cart.length ? user?.cart : [])
 
