@@ -72,6 +72,7 @@ function ShoppingCartPage() {
 
     const handleClickRemoveItemInCart = async (id: string) => {
         setLoading(true)
+        //Get item by id 
         const newCart = listCartUser.filter(item => {
             return !item._id.includes(id)
         })

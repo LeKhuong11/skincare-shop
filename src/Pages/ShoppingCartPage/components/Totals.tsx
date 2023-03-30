@@ -1,4 +1,6 @@
+import { message } from 'antd'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Button from '../../../components/Button'
 import { IProductsCart } from '../../../redux/slice/cartSlice'
@@ -56,6 +58,7 @@ const ContainerStyled = styled.div`
 `
 
 export default function Totals() {
+    const navigate = useNavigate();
     const { user } = useAppSelector(state => state.user)
     const cartItem: IProductsCart[] = user.cart
     let total: number = 0;
@@ -64,6 +67,15 @@ export default function Totals() {
     cartItem.forEach(item => {
         total += item.price * item.quantity
     })
+
+    const handleClickCheckout = () => {
+        if(user?.cart.length > 0) {
+            navigate('../checkout')
+        }
+        else {
+            message.warning("You have not selected a product!")
+        }
+    }
     
   return (
     <ContainerStyled>
@@ -87,7 +99,11 @@ export default function Totals() {
                 <span>${cartItem.length ? (total + tax + shipping).toFixed(1) : 0}</span>
             </div>
         </div>
-        <Button type='medium' content='checkout' />
+        <Button 
+            type='medium' 
+            content='checkout' 
+            onClick={handleClickCheckout}
+        />
     </ContainerStyled>
   )
 }

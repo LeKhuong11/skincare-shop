@@ -1,13 +1,14 @@
+import { message } from "antd";
+import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import Loading from "../../components/Loading";
 import TitleSection from "../../components/TitleSection";
 
 const ContainerStyled = styled.div`
-    form {
+    & .form-register {
         padding: 0 25%;
         display: flex;
         flex-direction: column;
@@ -16,13 +17,29 @@ const ContainerStyled = styled.div`
 
         @media only screen and (max-width: 1024px) {
             padding: 0 15%;
+            & .form {
+              flex-direction: column;
+  
+            }
         }
 
         @media only screen and (max-width: 768px) {
             padding: 0;
+
+            .login-btn {
+            }
         }
 
-        .login {
+        & .form {
+          display: flex;
+          justify-content: space-around;
+
+          & .input {
+            margin: 15px 0;
+          }
+        }
+
+        .login-btn {
             display: flex;
 
             gap: 20px;
@@ -44,36 +61,93 @@ const ContainerStyled = styled.div`
 `
 
 export default function SignUppage() {
-  const [user, setUser] = useState({
+  const navigate = useNavigate();
+  const [userRegister, setUserRegister] = useState({
     email: "",
     password: "",
+    userName: '',
+    displayname: '',
+    birthDay: '',
+    avatar: null
   });
 
-  const handleChange = (e: any) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
+  const handleClickUserRegister = async (e: any) => {
+    e.preventDefault();
+    
+    await axios.post("https://backend-skincare-shop.vercel.app/auth/register", userRegister)
+      .then((res) => {
+        message.success('Register susscessfully!')
+        navigate('../login')
+      })
+      .catch((err) => {
+        console.log(err);
+        message.warning('Register fail!')
+      })
+  }
+
+  const handleChangeSetValueRegister = (e: any) => {
+    setUserRegister({
+      ...userRegister,
+      [e.name]: e.value,
     });
   };
 
-  // console.log(user)
   
   return (
     <ContainerStyled>
       <TitleSection title="Create Account" subTitle="Sign Up" />
 
-      <form>
-        <div>
-            <label htmlFor="">Email Address</label> <br />
-            <Input type="text" />
+      <form className="form-register">
+        <div className="form">
+          <div>
+            <div className="input">
+                <label htmlFor="">Username</label> <br />
+                <Input 
+                  type="text" 
+                  name="userName"
+                  setValue={handleChangeSetValueRegister}
+                />
+            </div>
+            <div className="input">
+                <label htmlFor="">Email Address</label> <br />
+                <Input 
+                  type="text" 
+                  name="email"
+                  setValue={handleChangeSetValueRegister}
+                />
+            </div>
+            <div className="input">
+                <label htmlFor="">Password</label> <br />
+                <Input 
+                  type="password" 
+                  name="password"
+                  setValue={handleChangeSetValueRegister}
+                />
+            </div>
+          </div>
+          <div>
+            <div className="input">
+                <label htmlFor="">Full Name</label> <br />
+                <Input 
+                  type="text" 
+                  name="displayName"
+                  setValue={handleChangeSetValueRegister}
+                />
+            </div>
+            <div className="input">
+                <label htmlFor="">Birthday</label> <br />
+                <Input 
+                  type="date" 
+                  name="birthDay"
+                  setValue={handleChangeSetValueRegister}
+                />
+            </div>
+          </div>
         </div>
-        <div>
-            <label htmlFor="">Email Address</label> <br />
-            <Input type="text" />
-        </div>
+        
 
-        <div className="login">
-          <Button type="medium" content="Create Account" />
+        <div className="login-btn">
+          <Button type="medium" content="Create Account" onClick={handleClickUserRegister} />
           <Link to="/login"><Button type="transparent" content="Login" /></Link>
         </div>
       </form>

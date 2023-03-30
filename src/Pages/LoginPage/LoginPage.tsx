@@ -96,11 +96,11 @@ export default function LoginPage() {
         message.success("Logined susscessfully!")
         return
       } 
-      message.warning("Login fail")
+      message.warning("Login fail!")
       
 
     } catch(err) {
-      console.log(err);
+      message.warning("Login fail!")
     }
   }
 

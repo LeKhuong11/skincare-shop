@@ -3,25 +3,96 @@ import root from "./footer.module.scss";
 import { FiFacebook } from "react-icons/fi";
 import { FiTwitter } from "react-icons/fi";
 import { FiInstagram } from "react-icons/fi";
-import { useState } from "react";
-import { navigateFooter } from "./navigateFooter";
 import { Logo } from "../../assets/Logo";
 
-export const Footer = () => {
-    const [mode, setMode] = useState(true);
-    const handleSetMode = () => {
-        setMode(!mode);
-    }
-    const styleMode = {
-        lightMode: {
-            left: "6px",
-            right: "auto"
+
+const navigateFooter = {
+    category: [
+        {
+            name: "On Sale",
+            link: ""
         },
-        darkMode: {
-            left: "auto",
-            right: "6px"
-        }
-    }
+        {
+            name: "Featured",
+            link: ""
+        },
+        {
+            name: "Masks",
+            link: ""
+        },
+        {
+            name: "Eye Care",
+            link: ""
+        },
+        {
+            name: "Moisturizers",
+            link: ""
+        },
+        {
+            name: "Treatments",
+            link: ""
+        },
+        {
+            name: "Night Care",
+            link: ""
+        },
+        {
+            name: "Sun Care",
+            link: ""
+        },
+    ],
+    legal: [
+        {
+            name: "Terms of Service",
+            link: "/"
+        },
+        {
+            name: "Privacy Policy",
+            link: "/"
+        },
+        {
+            name: "Return Policy",
+            link: "/"
+        },
+        {
+            name: "Shipping",
+            link: "/"
+        },
+        {
+            name: "Data Protection",
+            link: "/"
+        },
+    ],
+    company: [
+        {
+            name: "About",
+            link: "/"
+        },
+        {
+            name: "Team",
+            link: "/"
+        },
+        {
+            name: "Contact",
+            link: "/"
+        },
+        {
+            name: "Careers",
+            link: "/"
+        },
+        {
+            name: "Vision",
+            link: "/"
+        },
+        {
+            name: "Culture",
+            link: "/"
+        },
+    ]
+}
+
+export const Footer = () => {
+ 
     return(
         <footer className={root.footer}>
             <div className={root.footerInfo}>
@@ -40,17 +111,6 @@ export const Footer = () => {
                         <FiFacebook/>
                     </Link>
                 </div>
-                {/* <button className={root.btnMode} onClick={() => handleSetMode()}>
-                    { mode ? (
-                        <div className={root.containerIconMode} style={styleMode.lightMode}>
-                        <img src={lightModeIcon} alt="" />
-                    </div>
-                    ) : (
-                        <div className={root.containerIconMode} style={styleMode.darkMode}>
-                        <img src={darkModeIcon} alt="" />
-                    </div>
-                    )}
-                </button> */}
             </div>
             <ul className={`${root.footerListLink} ${root.footerCategory}`}>
                 <h3 className={root.listLinkTitle}>Categories</h3>

@@ -11,6 +11,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 100px;
+    padding: 0 3%;
     margin: 144px 0 72px;
     @include Responsive($--desktop-M) {
         margin: 112px 0 64px;
@@ -76,30 +77,6 @@
             .linkSocialNetwork:hover {
                 background-color: var(--blue);
             }
-        }
-        .btnMode {
-            // width: 56px;
-            // height: 32px;
-            // border: solid 1px var(--black);
-            // border-radius: 16px;
-            // background-color: var(--gray);
-            // position: relative;
-            // cursor: pointer;
-            // .containerIconMode {
-            //     width: 24px;
-            //     height: 24px;
-            //     background-color: var(--green);
-            //     border-radius: 50%;
-            //     position: absolute;
-            //     top: 50%;
-            //     transform: translate(0, -50%);
-            //     img {
-            //         display: inline-block;
-            //         width: 12px;
-            //         height: 12px;
-            //         margin: 6px;
-            //     }
-            // }
         }
     }
     .footerListLink {

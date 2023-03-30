@@ -1,0 +1,76 @@
+.ant-steps {
+    margin-bottom: 30px !important;
+}
+.ant-steps .ant-steps-item{
+    padding-inline-start: 12px !important;
+}
+.ant-steps .ant-steps-item:first-child:first-child {
+    padding-inline-start: 0 !important;
+}
+.ant-steps-item-container .ant-steps-item-icon {
+    margin-right: 0 !important;
+}
+.ant-steps-item-process .ant-steps-item-icon {
+    background: var(--green) !important;
+    border: none !important;
+    margin: 0 !important;
+}
+
+.steps-content {
+    margin-bottom: 15px !important;
+}
+
+
+.ant-steps .ant-steps-item-wait > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after {
+    background-color: rgba(5, 5, 5, 0.06) !important;
+}
+.ant-steps .ant-steps-item-wait > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after {
+    background-color: rgba(5, 5, 5, 0.06) !important;
+}
+
+.ant-steps-item-content .ant-steps-item-title {
+
+    &::after {
+        background: var(--green) !important;
+    }
+}
+
+.ant-steps .ant-steps-item-finish .ant-steps-item-icon {
+    background: var(--greenLight) !important;
+    & .ant-steps-icon {
+        color: var(--green);
+    }
+}
+
+.steps-action .ant-btn-primary {
+    background-color: var(--green);
+    width: 85px;
+    height: 40px;
+    border-radius: 20px;
+}
+.steps-action .ant-btn-default {
+    width: 95px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    
+}
+@media only screen and (max-width: 660px) {
+    .ant-steps .ant-steps-item{
+        padding-inline-start: 0 !important;
+    }
+}
+@media only screen and (max-width: 575px) {
+    .ant-steps {
+        width: 50px;
+        height: 280px;
+    }
+    .steps-content-action {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 450px) {
+   
+}

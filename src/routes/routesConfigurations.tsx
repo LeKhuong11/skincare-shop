@@ -1,5 +1,6 @@
 import { useRoutes } from "react-router-dom"
 import AboutPage from "../Pages/AboutPage/AboutPage"
+import CheckoutPage from "../Pages/CheckoutPage/CheckoutPage"
 import ContactPage from "../Pages/ContactPage/ContactPage"
 import DashboardPage from "../Pages/DashboardPage/DashboardPage"
 import DetailPage from "../Pages/DetailPage/DetailPage"
@@ -62,6 +63,10 @@ export function RoutesConfigurations() {
         {
             path: 'dashboard',
             element: <DashboardPage />
+        },
+        {
+            path: 'checkout',
+            element: <CheckoutPage />
         },
     ]
     return useRoutes(element)

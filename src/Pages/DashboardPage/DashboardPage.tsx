@@ -1,5 +1,5 @@
-import React from 'react'
-import { Avatar, Button as ButtonAntd, Form, message, Upload, UploadFile, UploadProps } from 'antd'
+import React, { useState } from 'react'
+import { Avatar, Button as ButtonAntd, Form, message, Modal, Upload, UploadProps } from 'antd'
 import styled from 'styled-components'
 import TitleSection from '../../components/TitleSection'
 import { UploadOutlined } from '@ant-design/icons';
@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { deleteUser } from '../../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
+import Input from '../../components/Input';
 import axios from 'axios';
 
 
@@ -38,27 +39,22 @@ const ContainerStyled = styled.div`
             }
         }
     }
+    
+    & .input {
+        margin: 15px 0;
+    }
 `
-
-const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
 
 function DashboardPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { user } = useAppSelector(state => state.user)
+    const [ userChangePassword, setUserChangePassword ] = useState({
+        password: '',
+        newPassword: '',
+        confirmPassword: ''
+    });
+    const [ openModalChangePassword, setOpenModalChangePassword ] = useState(false);
     const props: UploadProps = {
         name: 'file',
         action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -83,7 +79,38 @@ function DashboardPage() {
         dispatch(deleteUser())
         navigate('../login')
     }
+    const handleClickChangePassword = () => {
+        setOpenModalChangePassword(true)
+    }
+    const handleChangeSetValueChangePassword = (e: any) => {
+        const name = e.name;
+        const value = e.value
 
+        setUserChangePassword({
+            ...userChangePassword,
+            [name]: value,
+          });
+    }
+
+    //Update password
+    const handleOkModalChangePassword = async () => {
+        const dataUpdatePassword = {
+            userName: user.userName,
+            password: userChangePassword.password,
+            newPassword: userChangePassword.newPassword,
+            confirmPassword: userChangePassword.confirmPassword
+        }
+        await axios.put(`http://localhost:3000/auth/change-password-user/${user._id}`, dataUpdatePassword) 
+            .then(res => {
+                setOpenModalChangePassword(false)
+                
+                message.success(res.data.message)
+            })
+            .catch(err => {
+                setOpenModalChangePassword(true)
+                message.warning(err.response.data.message)
+            })
+    };
   return (
     <ContainerStyled>
         <div>
@@ -127,7 +154,7 @@ function DashboardPage() {
                 </div>
                 <div>
                     <Button type='small' content='Edit Information' />
-                    <Button type='small' content='Change password' />
+                    <Button type='small' content='Change password' onClick={handleClickChangePassword} />
                     <Button 
                         type='small' 
                         content='Logout' 
@@ -136,6 +163,37 @@ function DashboardPage() {
                 </div>
             </div>
         </div>
+        <Modal
+            title="Title"
+            open={openModalChangePassword}
+            onOk={handleOkModalChangePassword}
+            onCancel={() => setOpenModalChangePassword(false)}
+        >
+            <div className="input">
+                <label htmlFor="">Password</label> <br />
+                <Input 
+                  type="password" 
+                  name="password"
+                  setValue={handleChangeSetValueChangePassword}
+                />
+            </div>
+            <div className="input">
+                <label htmlFor="">New Password</label> <br />
+                <Input 
+                  type="password" 
+                  name="newPassword"
+                  setValue={handleChangeSetValueChangePassword}
+                />
+            </div>
+            <div className="input">
+                <label htmlFor="">Confirm Password</label> <br />
+                <Input 
+                  type="password" 
+                  name="confirmPassword"
+                  setValue={handleChangeSetValueChangePassword}
+                />
+            </div>
+        </Modal>
     </ContainerStyled>
   )
 }

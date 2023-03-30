@@ -1,0 +1,213 @@
+%steps {
+    border-radius: 15px;
+    border: 1px solid var(--gray);
+    width: 100%;
+    padding: 30px;
+
+    & h3 {
+        margin-bottom: 20px;
+    }
+}
+
+%label {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 32px;
+}
+
+.checkout {
+
+    &>div:first-child {
+        margin-top: 30px;
+        & p {
+            color: var(--blue);
+            font-style: italic;
+        }
+    }
+    & .stepAndCart {
+        display: flex;
+        justify-content: space-around;
+        & .steps {
+            width: 45%;
+            margin: 40px 0;
+        }
+
+        & .carts {
+            width: 40%;
+            border-radius: 15px;
+            border: 1px solid var(--gray);
+            padding: 30px;
+            margin-top: 90px;
+            & h3 {
+                margin: 10px 0;
+            }
+            & .cartList {
+                margin-top: 20px;
+                & .cartItem {
+                    display: flex;
+                    width: 100%;
+                    height: 90px;
+                    justify-content: space-between;
+                    margin: 10px 0;
+                   &>div {
+                        display: flex;
+
+                        &>div:nth-child(1)  {
+                            background-color: var(--gray);
+                            width: 90px;
+                            height: 100%;
+                            padding: 0 10px;
+                            border-radius: 10px;
+                            margin-right: 9px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            
+                        }
+                        &>div:nth-child(2) {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+
+                            & h5 {
+                                margin-bottom: 8px;
+                            }
+                        }
+                    }
+                    & .times {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: auto 0;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        border: 1px solid var(--gray);
+                        cursor: pointer;
+                        & svg {
+                            opacity: .6;
+                        }
+                    }
+
+                }
+            }
+            &>div:nth-child(2) {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 25px
+            }
+        }
+    }
+    & .stepDetails {
+        @extend %steps;
+
+        &>div {
+            
+            & label {
+                @extend %label;
+            }
+        }
+    }
+    & .stepShipping {
+        @extend %steps;
+        &>div {
+
+            & label {
+                @extend %label;
+            }
+        }
+    }
+
+    & .stepBilling {
+        @extend %steps;
+        &>div {
+
+            & label {
+                @extend %label;
+            }
+        }
+    }
+    & .stepPayment {
+        @extend %steps;
+        &>div {
+
+            & label {
+                @extend %label;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .checkout {
+
+        & .stepAndCart {
+            flex-direction: column;
+
+            & .steps {
+                width: 100%;
+            }
+            & .carts {
+                width: 100%;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    
+}
+@media only screen and (max-width: 660px) {
+   
+}
+
+@media only screen and (max-width: 550px) {
+    .checkout {
+
+        & .stepAndCart {
+            flex-direction: column;
+
+            & .steps {
+                width: 100%;
+                
+            }
+        }
+    }
+    
+}
+
+@media only screen and (max-width: 490px) {
+   .checkout {
+
+        & .stepAndCart {
+
+            .carts {
+                & .cartList {
+    
+                    & .cartItem {
+                        flex-direction: column;
+                        height: 200px;
+                        text-align: center;
+                        align-items: center;
+                        margin-top: 1rem;
+                        &>div {
+                            flex-direction: column;
+                            align-items: center;
+                            &>div:nth-child(1) {
+                                margin: 0;
+                                margin-bottom: 10px;
+                                height: 90px;
+                            }
+                        }
+                    }
+                    & .times {
+                        margin-top: 10px;
+                    }
+                }
+            }   
+        }
+   }
+}
+
+
+

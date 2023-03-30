@@ -6,13 +6,13 @@ interface IInput {
   placehoder?: string,
   setValue?: any, 
   name?: string,
-  require?: boolean
+  require?: boolean,
+  width?: number
 }
 
 const InputStyled = styled.input`
-  width: 452px;
   border-radius: 20px;
-  padding: 16px;
+  padding: 12px;
   outline-style: none;
   font-size: 17px;
   margin-right: 15px;
@@ -27,9 +27,10 @@ const InputStyled = styled.input`
 
 `
 
-function Input({type, placehoder, setValue, name, require}: IInput) {
+function Input({type, placehoder, setValue, name, require, width = 452}: IInput) {
   return (
     <InputStyled 
+    style={{width: width}}
       onChange={(e) => setValue(e.target)} 
       type={type} 
       placeholder={placehoder} 
