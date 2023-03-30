@@ -100,7 +100,7 @@ function DashboardPage() {
             newPassword: userChangePassword.newPassword,
             confirmPassword: userChangePassword.confirmPassword
         }
-        await axios.put(`http://localhost:3000/auth/change-password-user/${user._id}`, dataUpdatePassword) 
+        await axios.put(`https://backend-skincare-shop.vercel.app/auth/change-password-user/${user._id}`, dataUpdatePassword) 
             .then(res => {
                 setOpenModalChangePassword(false)
                 
