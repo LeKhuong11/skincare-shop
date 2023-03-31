@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import FormSignup from '../../components/FormSignUp'
 import CustomSelect from '../../components/Select'
 import Topic from './components/Topic'
+import TitleSection from '../../components/TitleSection'
 
 const topic = [
     {
@@ -147,8 +148,7 @@ function FAQPage() {
   return (
     <ContainerStyled>
         <div>
-          <p>- Find the Answers</p>
-          <h2>Frequently Asked Questions</h2>
+          <TitleSection title='Frequently Asked Questions' subTitle='Find the Answers' />
         </div>
         <div className='selectTopic'>
             <div>

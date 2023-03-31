@@ -15,9 +15,11 @@ const InputStyled = styled.input`
   padding: 12px;
   outline-style: none;
   font-size: 17px;
-  margin-right: 15px;
-  border: 2px solid var(--gray);
-  
+  margin: 0 15px 0 0;
+  border: 2px solid var(--bodyBorder);
+  background: var(--bodyBackground);
+  color: var(--bodyColor);
+
   &:focus {
     border: 2px solid var(--green);
   }
@@ -30,7 +32,7 @@ const InputStyled = styled.input`
 function Input({type, placehoder, setValue, name, require, width = 452}: IInput) {
   return (
     <InputStyled 
-    style={{width: width}}
+      style={{width: width}}
       onChange={(e) => setValue(e.target)} 
       type={type} 
       placeholder={placehoder} 

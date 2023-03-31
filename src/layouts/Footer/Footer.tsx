@@ -3,8 +3,8 @@ import root from "./footer.module.scss";
 import { FiFacebook } from "react-icons/fi";
 import { FiTwitter } from "react-icons/fi";
 import { FiInstagram } from "react-icons/fi";
-import { Logo } from "../../assets/Logo";
-
+import SwitchTheme from "../../components/Theme";
+const logo = require('../../assets/Logo.png')
 
 const navigateFooter = {
     category: [
@@ -92,12 +92,14 @@ const navigateFooter = {
 }
 
 export const Footer = () => {
- 
+    
+    
     return(
         <footer className={root.footer}>
             <div className={root.footerInfo}>
                 <Link className={root.logoLink} to="/">
-                    <Logo />
+                    <img src={logo} alt="logo" /> 
+                    <h2>Hygge</h2>
                 </Link>
                 <span className={root.content}>© 2020 - All rights reserved</span>
                 <div className={root.containerLinkSocialNetwork}>
@@ -110,6 +112,9 @@ export const Footer = () => {
                     <Link className={root.linkSocialNetwork} to="/">
                         <FiFacebook/>
                     </Link>
+                </div>
+                <div className={root.theme}>
+                    <SwitchTheme />
                 </div>
             </div>
             <ul className={`${root.footerListLink} ${root.footerCategory}`}>

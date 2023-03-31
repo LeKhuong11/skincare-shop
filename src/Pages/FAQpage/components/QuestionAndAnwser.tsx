@@ -1,4 +1,6 @@
 import { Collapse } from 'antd';
+import './style/styleQuestionAndAnwser.scss'
+
 const { Panel } = Collapse;
 
 interface IQuestionAndAnwser {
@@ -24,9 +26,9 @@ function QuestionAndAnwser({question, anwser}: IQuestionAndAnwser) {
 
   return (
     <Collapse defaultActiveKey={['1']} ghost>
-    <Panel style={styleCssQuestions} header={question} key="1">
-      <p style={styleCssAnwser}>{anwser ? anwser : text}</p>
-    </Panel>
+      <Panel style={styleCssQuestions} header={question} key="1">
+        <p style={styleCssAnwser}>{anwser ? anwser : text}</p>
+      </Panel>
   </Collapse>
   )
 }

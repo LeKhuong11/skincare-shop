@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store'
 import CartItem from './components/CartItem'
 import NotFoundCart from './components/NotFoundCart'
 import Totals from './components/Totals'
+import Button from '../../components/Button'
 
 const ContainerStyled = styled.div`
 
@@ -115,7 +116,7 @@ function ShoppingCartPage() {
                         <TitleSection title="Shopping Cart" subTitle="Your Cart"/>
                     </div>
                     <div>
-                        <button onClick={handleClickClearCart}>Clear All</button>
+                        <Button content='Clear All' type='transparent' onClick={handleClickClearCart} />
                     </div>
                 </div>
                 <div className='cartContent'>

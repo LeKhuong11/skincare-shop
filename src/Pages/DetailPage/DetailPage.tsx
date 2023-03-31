@@ -19,7 +19,6 @@ import { updateCartUser } from '../../redux/slice/userSlice'
 
 const { confirm } = Modal;
 const ContainerStyled = styled.div`
-
    & .product {
         display: flex;
         margin-top: 50px;
@@ -30,7 +29,7 @@ const ContainerStyled = styled.div`
             & .image-product {
                 
                 &>div {
-                    background-color: var(--gray);
+                    background-color: var(--bodyBorder);
                     border-radius: 32px;
                     padding: 7px;
                     display: flex;
@@ -50,7 +49,7 @@ const ContainerStyled = styled.div`
             & .img-main-product {
                 width: 350px;
                 height: 350px;
-                background-color: var(--gray);
+                background-color: var(--bodyBorder);
                 border-radius: 32px;
                 padding: 10px;
                 display: flex;
@@ -78,13 +77,21 @@ const ContainerStyled = styled.div`
                     justify-content: center;
                     align-items: center;
                     margin-right: 15px;
+                    color: var(--bodyColor);
+                }
+                & h5 {
+                    color: var(--bodyColor);
                 }
             }
             &>div:nth-child(3) {
                 display: flex;
                 align-items: center;
 
+                & h5 {
+                    color: var(--bodyColor);
+                }
                 & p {
+                    color: var(--bodyColor);
                     margin-right: 15px;
                 }
             }
@@ -96,6 +103,9 @@ const ContainerStyled = styled.div`
                 & .heart {
                     margin-left: 20px;
                     cursor: pointer;    
+                    & svg {
+                        color: var(--bodyColor);
+                    }
                 }
 
                 & .amount {
@@ -106,10 +116,13 @@ const ContainerStyled = styled.div`
                         align-items: center;
                         width: 166px;
                         padding: 12px;
-                        border: 2px solid var(--gray);
+                        border: 2px solid var(--bodyBorder);
                         border-radius: 32px;
                         justify-content: space-around;
                         margin-right: 20px;
+                        & span {
+                            color: var(--bodyColor);
+                        }
                         & .buttonIncrease, .buttonDecrease {
                             display: block;
                             border: none;
@@ -122,6 +135,7 @@ const ContainerStyled = styled.div`
                                 height: 100%;
                                 width: 100%;
                                 stroke-width: 1;
+                                color: var(--bodyColor);
                             }
                         }
                         .buttonDecrease {
@@ -141,7 +155,7 @@ const ContainerStyled = styled.div`
                             font-size: 24px;
                             line-height: 32px;
                             font-weight: var(--fontWeightBold);
-                            color: var(--textDrak100);
+                            color: var(--bodyColor);
                           
                         }
                     }
@@ -210,6 +224,14 @@ const ContainerStyled = styled.div`
                 justify-content: center;
                 align-items: center;
                 margin-right: 20px;
+            }
+            & span {
+                & h5 {
+                    color: var(--bodyColor);
+                }
+                & p {
+                    color: var(--bodyColor);
+                }
             }
         }
 
@@ -290,6 +312,9 @@ function DetailPage() {
                 content: 'Go to Login page!',
                 onOk() {
                   navigate('../login')
+                },
+                onCancel() {
+                    setLoadingAddToCart(false) 
                 }
               });
               return
@@ -421,8 +446,6 @@ function DetailPage() {
                             <div className='icon'>
                                 <AiOutlineRise size={26} />
                             </div>
-                            <span> 
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -447,47 +470,5 @@ function DetailPage() {
     </ContainerStyled>
   )
 }
-
-// function addToCart(product, navigate, dispatch, AllItems) {
-
-  
-//     let tempProduct = [];
-//     let getQuantity = 0;
-
-//     //create a object product new
-//     const productAdded = {  
-//       id: product._id,
-//       name: product.name,
-//       img: product.img,
-//       size: product.size,
-//       price: product.price,
-//       quantity: 1
-//     }
-//     if(AllItems) {
-//       tempProduct = AllItems.filter(item => {
-//           return item.id.includes(productAdded.id)
-//       })
-//     }
-
-//     //kiem tra neu trong mang co trung nhau thi tang so luong len va xoa phan tu
-//     if(tempProduct.length >= 1){
-//         getQuantity = tempProduct[0].quantity;
-//         productAdded.quantity = getQuantity + 1
-
-//         // xoa san pham bi trung sau do update san pham moi len localStorage da cap nhat so luong va gia
-//         for (let i = 0; i < AllItems.length; i++) {
-//             if(AllItems[i].id === productAdded.id) {    
-//                 AllItems.splice(i, 1);
-//             }
-//         }
-//         AllItems.push(productAdded)
-//         // dispatch(cartUpdate(AllItems))
-//         console.log(productAdded);
-//     }
-//     else {
-//         // dispatch(cart(productAdded))
-//     }
- 
-// }
 
 export default DetailPage

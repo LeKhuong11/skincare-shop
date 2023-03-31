@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
 import styled from "styled-components";
-import { updateCart } from "../../../redux/slice/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 
 interface ICartItem {
@@ -18,7 +17,7 @@ const ContainerStyled = styled.div`
     display: flex;
     align-items: center;
     padding: 20px 30px;
-    border: 2px solid var(--gray);
+    border: 2px solid var(--bodyBorder);
     border-radius: 48px;
     width: 100%;
     margin: 10px 0;
@@ -53,6 +52,13 @@ const ContainerStyled = styled.div`
         flex-direction: column;
         gap: 20px;
 
+        & h4 {
+            color: var(--bodyColor);
+        }
+        & p {
+            color: var(--bodyColor);
+        }
+
         @media only screen and (max-width: 1024px) {
             width: 70%;
         }
@@ -64,15 +70,24 @@ const ContainerStyled = styled.div`
     & .amount {
         display: flex;
         align-items: center;
+        
+        & .times {
+            & svg {
+             color: var(--bodyColor);
+            }
+        }
         & .button {
             display: flex;
             align-items: center;
             width: 166px;
             padding: 12px;
-            border: 2px solid var(--gray);
+            border: 2px solid var(--bodyBorder);
             border-radius: 32px;
             justify-content: space-around;
             margin-right: 20px;
+            & span {
+                color: var(--bodyColor);
+            }
             & .buttonIncrease, .buttonDecrease {
                 display: block;
                 border: none;
@@ -85,27 +100,27 @@ const ContainerStyled = styled.div`
                     height: 100%;
                     width: 100%;
                     stroke-width: 1;
+                    color: var(--bodyColor);
                 }
             }
     
-            .buttonDecrease {
+            & .buttonDecrease {
                 @include Responsive($--mobile) {
                     margin-left: 16px;
                 }
             }
-            .buttonIncrease {
+            & .buttonIncrease {
                 @include Responsive($--mobile) {
                     margin-right: 16px;
                 }
             }
-            span {
+            & span {
                 display: block;
                 margin: 16px 0;
                 font-family: inherit;
                 font-size: 24px;
                 line-height: 32px;
                 font-weight: var(--fontWeightBold);
-                color: var(--textDrak100);
                 @include Responsive($--mobile) {
                     font-size: 20px;
                     margin: 8px 0;
@@ -165,7 +180,7 @@ export default function CartItem({id, onClick, img, price, name, quantity}: ICar
                     onClick={() => handleClickIncrease()}
                 ><BsChevronRight/></button>
             </div>
-            <div style={{cursor: 'pointer'}} onClick={() => onClick()}>
+            <div className="times" onClick={() => onClick()}>
                 <FaTimes size={25} />
             </div>
         </div>

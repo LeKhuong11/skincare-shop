@@ -20,7 +20,11 @@ const ContainerStyled = styled.div`
                     font-weight: var(--fontWeightSemibold);
                 }
                 & h4 {
+                    color: var(--bodyColor);
                     margin-bottom: 10px;
+                }
+                & p {
+                    color: var(--bodyColor);
                 }
             }
         }
@@ -39,6 +43,9 @@ const ContainerStyled = styled.div`
                 &>div {
                     margin: 30px 0;
 
+                    & label {
+                        color: var(--bodyColor);
+                    }
                     & input {
                         margin-top: 10px;
                     }

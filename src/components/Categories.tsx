@@ -14,7 +14,7 @@ const ContainerStyled = styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: var(--gray);
+        background-color: var(--bodyBorder);
         margin: 0 10px;
         cursor: pointer;
         & svg {
@@ -22,6 +22,7 @@ const ContainerStyled = styled.div`
         }
         & h5 {
             margin-top: 12px;
+            color: var(--bodyColor);
         }
 `
 

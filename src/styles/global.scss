@@ -15,7 +15,7 @@
     --gray: #f3f3f5;
     --red: #ff0000;
     --white: #ffffff;
-    --drakMode: #14141b;
+    --drakMode: #202029;
     --black: #000000;
     --textDrak100: #1a202c;
     --textDrak64: rgb(26, 32, 44, 0.64);
@@ -31,6 +31,17 @@
     --fontWeightMedium: 500;
     --fontWeightSemibold: 600;
     --fontWeightBold: 700;
+    
+    //Color Theme Light
+    --bodyBackground: #fff;
+    --bodyColor: #181e29;
+    --bodyBorder: #f3f3f5;
+  }
+  //Color Theme Dark
+  [theme='dark'] {
+    --bodyBackground: #14141B;
+    --bodyColor: #F7FAFC;
+    --bodyBorder: #1E1E27;
   }
   
   html,

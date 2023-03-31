@@ -34,8 +34,9 @@ const ContainerStyled = styled.div`
           display: flex;
           justify-content: space-around;
 
-          & .input {
-            margin: 15px 0;
+          & p {
+            margin-bottom: 5px;
+            color: var(--bodyColor);
           }
         }
 
@@ -53,6 +54,7 @@ const ContainerStyled = styled.div`
                 flex-direction: column;
 
                 a {
+                  
                     width: 100%;
                 }
             }
@@ -101,7 +103,7 @@ export default function SignUppage() {
         <div className="form">
           <div>
             <div className="input">
-                <label htmlFor="">Username</label> <br />
+                <p>Username</p> 
                 <Input 
                   type="text" 
                   name="userName"
@@ -109,7 +111,7 @@ export default function SignUppage() {
                 />
             </div>
             <div className="input">
-                <label htmlFor="">Email Address</label> <br />
+                <p>Email Address</p>
                 <Input 
                   type="text" 
                   name="email"
@@ -117,7 +119,7 @@ export default function SignUppage() {
                 />
             </div>
             <div className="input">
-                <label htmlFor="">Password</label> <br />
+                <p>Password</p>
                 <Input 
                   type="password" 
                   name="password"
@@ -127,7 +129,7 @@ export default function SignUppage() {
           </div>
           <div>
             <div className="input">
-                <label htmlFor="">Full Name</label> <br />
+                <p>Full Name</p>
                 <Input 
                   type="text" 
                   name="displayName"
@@ -135,7 +137,7 @@ export default function SignUppage() {
                 />
             </div>
             <div className="input">
-                <label htmlFor="">Birthday</label> <br />
+                <p>Birthday</p>
                 <Input 
                   type="date" 
                   name="birthDay"

@@ -9,7 +9,8 @@ interface ITopic {
 const ContainerStyled = styled.div`
     margin-top: 10rem;
     & h3 {
-        height: 33px;
+      color: var(--bodyColor);
+      height: 33px;
     }
     & .questions {
         display: grid;

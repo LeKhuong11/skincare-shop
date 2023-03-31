@@ -12,13 +12,14 @@ const ContainerStyled = styled.div`
         height: 48px;
         padding: 17px;
         border: none;
-        background-color: var(--gray);
+        background-color: var(--bodyBorder);
         border-radius: 50%;
         cursor: pointer;
         svg {
             width: 100%;
             height: 100%;
             stroke-width: 1;
+            color: var(--bodyColor);
         }
     }
     .btnSlideLeft:hover, .btnSlideRight:hover {

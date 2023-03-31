@@ -27,7 +27,7 @@ const ContainerStyled = styled.div`
 
         &>div:first-child {
             height: 70%;
-            background-color: var(--gray);
+            background-color: var(--bodyBorder);
             border-radius: 20px;
             display: flex;
             justify-content: center;
@@ -36,7 +36,11 @@ const ContainerStyled = styled.div`
         &>div:nth-child(2) {
     
             & h3 {
+                color: var(--bodyColor);
                 margin: 18px 0 5px 0;
+            }
+            & h5 {
+                color: var(--bodyColor);
             }
             & .rate {
                 margin-bottom: 5px;

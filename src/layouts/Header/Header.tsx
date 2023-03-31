@@ -1,13 +1,15 @@
 import React, { useRef } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { BiSearch } from "react-icons/bi";
 import { BsCart2 } from "react-icons/bs";
 import { FiUser } from "react-icons/fi";
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { Logo } from '../../assets/Logo';
 import { Avatar, Badge } from 'antd';
 import { useAppSelector } from '../../redux/store';
 import styled from 'styled-components';
+import Input from '../../components/Input';
+import SwitchTheme from '../../components/Theme';
+const lolo = require('../../assets/Logo.png')
 
 const ContainerStyled = styled.div`
     width: 100%;
@@ -16,7 +18,17 @@ const ContainerStyled = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 3%;
-
+    & .logo {
+        display: flex;
+        & img {
+            margin-right: 6px;
+            width: 42px;
+            height: 42px;
+        }
+        & h2 {
+            color: var(--bodyColor);
+        }
+    }
     & .navigation {
         padding: 7px;
         &>ul {
@@ -26,7 +38,7 @@ const ContainerStyled = styled.div`
                 position: relative;
                 & a{
                     text-decoration: none;
-                    color: var(--textDrak100);
+                    color: var(--bodyColor);
                 }
                 & .active {
                     border-bottom: 4px solid var(--green);
@@ -63,9 +75,14 @@ const ContainerStyled = styled.div`
             &>li {
                 margin: 10px;
                 position: relative;
+                display: flex;
+                align-items: center;
                 & a{
                     text-decoration: none;
-                    color: var(--textDrak100);
+                    color: var(--bodyColor);
+                }
+                & svg {
+                    color: var(--bodyColor);
                 }
                 & .active {
                     color: red;
@@ -100,6 +117,9 @@ const ContainerStyled = styled.div`
         cursor: pointer;
         opacity: 0;
         display: none;
+        & svg {
+            color: var(--bodyColor);
+        }
     }
 
     @media only screen and (max-width: 1024px) {
@@ -120,7 +140,7 @@ const ContainerStyled = styled.div`
             align-items: center;
             transition: .8s;
             transform: translateY(-100%); 
-            background-color: var(--gray);
+            background-color: var(--bodyBackground);
 
             &>ul {
                 flex-direction: column;
@@ -143,6 +163,12 @@ const ContainerStyled = styled.div`
         .reponsive_navbar {
             transform: none;
         }
+    }
+    @media only screen and (max-width: 768px) {
+        .theme {
+            display: none;
+        }
+    }
     & .close_btn {
         position: absolute;
         top: 1rem;
@@ -150,7 +176,7 @@ const ContainerStyled = styled.div`
 `
 
 function Header() {
-    const { cart } = useAppSelector(state => state.cart)
+    const { pathname } = useLocation();
     const { user } = useAppSelector(state => state.user)
     const divRefMenu = useRef<any>();
     const showNavbar = () => {
@@ -158,12 +184,13 @@ function Header() {
       }
   return (
     <ContainerStyled>
-        <div>
-            <Logo />
-        </div>
+        <Link className='logo' to="/">
+            <img src={lolo} alt="logo" /> 
+            <h2>Hygge</h2>
+        </Link>
         <div ref={divRefMenu}  className='navigation'>
             <div className='btn close_btn' onClick={showNavbar}> 
-                <FaTimes size={27} color="#333" />
+                <FaTimes size={27} />
             </div> 
             <ul>
                 <li>
@@ -184,7 +211,7 @@ function Header() {
             </ul>
         </div>
         <div className='btn' onClick={showNavbar}>
-            <FaBars size={25} color="#333"/>
+            <FaBars size={25}/>
         </div> 
         <div className='navigationFeature'>
             <ul>
@@ -192,6 +219,7 @@ function Header() {
                     <Link to="search">
                         <BiSearch fontSize={23} />
                     </Link>
+                    {pathname === '/search' && <Input type='text' width={250} />}
                 </li>
                 <li className='shopping-cart'>
                     <Link to="shopping-cart">
@@ -213,6 +241,11 @@ function Header() {
                             <FiUser fontSize={22}/>
                         </Link>
                     }
+                </li>
+                <li>
+                    <div className='theme'>
+                        <SwitchTheme />
+                    </div>
                 </li>
             </ul>
         </div>

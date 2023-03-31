@@ -30,8 +30,8 @@ const ContainerStyled = styled.div`
     }
     & .transparent {
         background-color: transparent !important;
-        color: var(--textDrak100) !important;
-        border: 2px solid var(--gray) !important;
+        color: var(--bodyColor) !important;
+        border: 2px solid var(--bodyBorder) !important;
         width: 220px;
     }
     & :hover {

@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 const ContainerStyled = styled.div`
     padding: 1% 0 3%;
-
+    h2 {
+      color: var(--bodyColor);
+    }
     h5 {
         color: var(--blue);
         font-style: italic;

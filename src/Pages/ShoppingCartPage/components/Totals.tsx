@@ -9,22 +9,15 @@ import { useAppSelector } from '../../../redux/store'
 const ContainerStyled = styled.div`
     width: 30%;
     height: 100%;
-
     display: flex;
     flex-direction: column;
     gap: 40px;
-
     padding: 20px 3%;
-
     border: 2px solid var(--gray);
     border-radius: 48px;
 
-    @media screen and (max-width: 1024px) {
-        width: 100%;
-    }
-
-    @media only screen and (max-width: 375px) {
-        padding: 20px;
+    & h2 {
+        color: var(--bodyColor);
     }
 
     .subtotal {
@@ -33,27 +26,36 @@ const ContainerStyled = styled.div`
         gap: 40px;
 
         @media screen and (max-width: 1024px) {
-        grid-template: 1fr 1fr / 1fr 1fr;
+            grid-template: 1fr 1fr / 1fr 1fr;
         }
 
         @media screen and (max-width: 768px) {
-        grid-template: 1fr 1fr 1fr 1fr / 1fr;
+            grid-template: 1fr 1fr 1fr 1fr / 1fr;
         }
 
         .subtotalItems, .totalItems {
-        display: flex;
-        justify-content: space-between;
+            display: flex;
+            justify-content: space-between;
 
-        span {
-            display: block;
-        }
+            span {
+                display: block;
+                color: var(--bodyColor);
+            }
         }
 
         .totalItems {
             span {
+                color: var(--bodyColor);
                 font-weight: 600;
             }
         }
+    }
+    @media screen and (max-width: 1024px) {
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 375px) {
+        padding: 20px;
     }
 `
 

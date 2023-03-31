@@ -13,6 +13,7 @@ import TitleSection from '../../components/TitleSection'
 import { useAppSelector } from '../../redux/store'
 import { IProducts } from '../../redux/slice/productsSilce'
 import { Link } from 'react-router-dom'
+import { Carousel } from 'antd'
 
 
 
@@ -25,7 +26,7 @@ const ContainerStyled = styled.div`
       & section {
         display: flex;
         padding: 5%;
-        background-color: var(--gray);
+        background-color: var(--bodyBorder);
         border-radius: 64px;
         .heroContent {
             width: 55%;
@@ -151,6 +152,33 @@ function HomePage() {
   const [ listProducts, setListProducts ] = useState<IProducts[]>(products)
   return (
     <ContainerStyled>
+      <Carousel autoplay>
+        <div className='homeAds'>
+          <section>
+            <div className='heroContent'>
+                <TitleSection title="We Offer the Best Products for your Skin" subTitle="Skincare Products"/>
+                <Link to="../products">
+                  <Button type='medium' content='Shop Now' />
+                </Link>
+            </div>
+            <div className='infProduct'>
+              <img src={Image} alt="product"/>
+            </div>
+          </section>
+        </div>
+        <div className='homeAds'>
+        <section>
+          <div className='heroContent'>
+              <TitleSection title="We Offer the Best Products for your Skin" subTitle="Skincare Products"/>
+              <Link to="../products">
+                <Button type='medium' content='Shop Now' />
+              </Link>
+          </div>
+          <div className='infProduct'>
+            <img src={Image} alt="product"/>
+          </div>
+        </section>
+       </div>
        <div className='homeAds'>
         <section>
           <div className='heroContent'>
@@ -164,6 +192,7 @@ function HomePage() {
           </div>
         </section>
        </div>
+      </Carousel>
        <div className='theCategories'>
           <div>
             <TitleSection title="Browse by Category" subTitle="The Categories"/>

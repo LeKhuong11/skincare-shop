@@ -17,6 +17,9 @@ const ContainerStyled = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    & label {
+      color: var(--bodyColor);
+    }
     & input {
       margin-top: 10px;
     }
@@ -36,17 +39,16 @@ const ContainerStyled = styled.div`
 
       a {
         width: 50%;
-
+        
         &:nth-child(1) {
           text-decoration: none;
         }
-
+        
         &:nth-child(2) {
           font-size: 20px;
           line-height: 24px;
           font-weight: 400;
-
-          color: var(--black);
+          color: var(--bodyColor);
         }
       }
     }

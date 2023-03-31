@@ -1,18 +1,17 @@
 @import "../../styles/mixins";
-
 @mixin linkItem {
     font-size: 16px;
     line-height: 24px;
     height: 24px;
     font-weight: var(--fontWeightRegular);
-    color: var(--textDrak100);
+    color: var(--bodyColor);
 }
 .footer {
     display: grid;
+    padding: 0 3%;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 100px;
-    padding: 0 3%;
-    margin: 144px 0 72px;
+    margin: 144px 0 0;
     @include Responsive($--desktop-M) {
         margin: 112px 0 64px;
         column-gap: 50px;
@@ -31,14 +30,26 @@
         .logoLink, .content, .btnMode {
             display: block;
         }
+        .theme {
+            display: none;
+            @include Responsive($--tablet) {
+                 display: block;
+            }
+        }
         .logoLink {
-            .logoImg {
-                display: block;
-                width: 100%;
+            display: flex;
+            & h2 {
+                color: var(--bodyColor);
+            }
+            & img {
+                margin-right: 6px;
+                width: 42px;
+                height: 42px;
             }
         }
         .content {
             @include linkItem;
+            color: var(--bodyColor);
             margin: 24px 0 32px;
         }
         .containerLinkSocialNetwork {
@@ -83,17 +94,18 @@
         display: block;
         .listLinkTitle {
             margin-bottom: 24px;
+            color: var(--bodyColor);
         }
         .listLinkItem {
             margin-bottom: 16px;
-        }
-        .listLinkItem>a {
-            text-decoration: none;
-            @include linkItem;
-        }
-        .listLinkItem>a:hover {
-            color: var(--green);
-            text-decoration: underline;
+            & a {
+                @include linkItem;
+
+                &:hover {
+                    color: var(--green);
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }

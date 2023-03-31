@@ -35,6 +35,10 @@ const ContainerStyled = styled.div`
                 & h5 {
                     margin-right: 35px;
                     min-width: 130px;
+                    color: var(--bodyColor);
+                }
+                & p {
+                    color: var(--bodyColor);
                 }
             }
         }
@@ -63,7 +67,6 @@ function DashboardPage() {
         },
         async onChange(info) {
             if (info.file.status !== 'uploading') {
-                console.log(info.fileList[0]);
             }
             if (info.file.status === 'done') {
                 console.log(info.fileList[0]);

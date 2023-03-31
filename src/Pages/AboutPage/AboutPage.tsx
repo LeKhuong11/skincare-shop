@@ -56,6 +56,7 @@ const ContaierStyled = styled.div`
                 font-weight: 400;
                 font-size: 20px;
                 line-height: 48px;
+                color: var(--bodyColor);
               }
             }
           
@@ -99,7 +100,13 @@ const ContaierStyled = styled.div`
                     gap: 30px;
                     justify-content: center;
                     align-items: center;
-                
+                    
+                    & h3 {
+                        color: var(--bodyColor);
+                    }
+                    & p {
+                        color: var(--bodyColor);
+                    }
                     .icon {
                         background-color: var(--gray);
                 

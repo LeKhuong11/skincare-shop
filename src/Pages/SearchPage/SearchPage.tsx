@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import CardItem from '../../components/CardItem'
 import FormSignup from '../../components/FormSignUp'
 import { IProducts } from '../../redux/slice/productsSilce'
 import { useAppSelector } from '../../redux/store'
-import root from './search.module.scss'
 
 
 const ContainerStyled = styled.div`
@@ -13,11 +12,15 @@ const ContainerStyled = styled.div`
 
       & h2 {
           margin: 20px 0;
+          color: var(--bodyColor);
       }
   }
 
   & .resultFound {
       margin: 20px 0;
+      & p {
+        color: var(--bodyColor);
+      }
   }
 
   & .selectTag {
@@ -44,7 +47,6 @@ function SearchPage() {
   const { products } = useAppSelector(state => state.products)
   const [ listProducts, setListProducts ] = useState<IProducts[]>(products)
   
-  console.log(listProducts);
   
   return (
     <ContainerStyled>

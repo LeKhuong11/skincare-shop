@@ -1,11 +1,15 @@
 %steps {
     border-radius: 15px;
-    border: 1px solid var(--gray);
+    border: 1px solid var(--bodyBorder);
     width: 100%;
     padding: 30px;
 
     & h3 {
+        color: var(--bodyColor);
         margin-bottom: 20px;
+    }
+    & label {
+        color: var(--bodyColor);
     }
 }
 
@@ -37,11 +41,15 @@
         & .carts {
             width: 40%;
             border-radius: 15px;
-            border: 1px solid var(--gray);
+            border: 1px solid var(--bodyBorder);
             padding: 30px;
             margin-top: 90px;
             & h3 {
+                color: var(--bodyColor);
                 margin: 10px 0;
+            }
+            & h4 {
+                color: var(--bodyColor);
             }
             & .cartList {
                 margin-top: 20px;
@@ -55,7 +63,7 @@
                         display: flex;
 
                         &>div:nth-child(1)  {
-                            background-color: var(--gray);
+                            background-color: var(--bodyBorder);
                             width: 90px;
                             height: 100%;
                             padding: 0 10px;
@@ -72,7 +80,11 @@
                             justify-content: center;
 
                             & h5 {
+                                color: var(--bodyColor);
                                 margin-bottom: 8px;
+                            }
+                            & p {
+                                color: var(--bodyColor);
                             }
                         }
                     }
@@ -87,6 +99,7 @@
                         border: 1px solid var(--gray);
                         cursor: pointer;
                         & svg {
+                            color: var(--bodyColor);
                             opacity: .6;
                         }
                     }
