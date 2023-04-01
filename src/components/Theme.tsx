@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useAppSelector } from '../redux/store'
 
 
 const ContainerStyled = styled.div`
@@ -113,12 +114,13 @@ const ContainerStyled = styled.div`
 `
 
 function SwitchTheme() {
-
     const setDarkMode = () => {
         document.querySelector("body")?.setAttribute('theme', 'dark')
+        localStorage.setItem('theme', 'dark')
     }
     const setLightMode = () => {
         document.querySelector("body")?.setAttribute('theme', 'light')
+        localStorage.setItem('theme', 'light')
     }
 
     const handleChangeToggleTheme = (e: any) => {

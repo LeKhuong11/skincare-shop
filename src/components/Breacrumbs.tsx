@@ -10,16 +10,15 @@ const BreadcrumbStyled = styled(Breadcrumb)`
         .ant-breadcrumb-link {
             font-size:  16px;
         }
-        
-        
     }
     & li {
         display: flex;
         flex-direction: column;
         justify-content: center;
-    }
-    a {
-        font-size: 16px;
+        a {
+            color: var(--bodyColor);
+            font-size: 16px;
+        }
     }
 `
 export interface IBreadcrumb {
@@ -34,26 +33,10 @@ interface IItems {
 
 function Breadcrumbs({crumbs}: IItems) {
 
-  // const location = useLocation();
-
-  // // path = home/dashboard => home | dashboard
-  // let currentPath: string = ''
-  // const crumbs = location.pathname.split('/')
-  //   .filter(crumb => crumb !== '')
-  //   .map(crumb => {
-  //     currentPath += `/${crumb}`
-
-  //     return <Breadcrumb.Item key={crumb} >
-  //       <Link to={currentPath}>{crumb}</Link>
-  //     </Breadcrumb.Item>
-      
-  //   })
-
     return(
        <nav> 
           <BreadcrumbStyled separator={<IoIosArrowForward />}>
             {crumbs.map(item => {
-
               return <Breadcrumb key={item.key}>
                 <Link to={item.path}>{item.namePage}</Link>
               </Breadcrumb>

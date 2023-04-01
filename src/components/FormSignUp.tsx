@@ -6,7 +6,7 @@ import Button from './Button'
 import Input from './Input'
 
 const ContainerStyled = styled.div`
-    background-color: var(--gray);
+    background-color: var(--bodyBorder);
     border-radius: 20px;
     text-align: center;
     display: flex;

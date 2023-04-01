@@ -180,7 +180,7 @@ export default function CartItem({id, onClick, img, price, name, quantity}: ICar
                     onClick={() => handleClickIncrease()}
                 ><BsChevronRight/></button>
             </div>
-            <div className="times" onClick={() => onClick()}>
+            <div style={{cursor: 'pointer'}} className="times" onClick={() => onClick()}>
                 <FaTimes size={25} />
             </div>
         </div>

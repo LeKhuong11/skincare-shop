@@ -11,6 +11,7 @@ import ProductPage from "../Pages/ProductsPage/ProductPage"
 import SearchPage from "../Pages/SearchPage/SearchPage"
 import ShoppingCartPage from "../Pages/ShoppingCartPage/ShoppingCartPage"
 import SignUppage from "../Pages/SignUpPage/SignUpPage"
+import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage"
 
 interface IRoutes {
     path: string,
@@ -67,6 +68,10 @@ export function RoutesConfigurations() {
         {
             path: 'checkout',
             element: <CheckoutPage />
+        },
+        {
+            path: '*',
+            element: <NotFoundPage />
         },
     ]
     return useRoutes(element)

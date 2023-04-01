@@ -8,9 +8,10 @@ import { fetchProducts } from './redux/slice/productsSilce';
 
 function App() {
   const dispath = useAppDispatch();
-
   useEffect(() => {
     dispath(fetchProducts())
+    const getTheme = localStorage.getItem("theme")
+    document.querySelector("body")?.setAttribute('theme', `${getTheme}`)
   }, [])
   return (
     <div className={root.App}>

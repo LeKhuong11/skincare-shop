@@ -17,7 +17,11 @@ const ContainerStyled = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: var(--bodyBackground);
+    z-index: 100;
     padding: 0 3%;
+    position: sticky;
+    top: 0;
     & .logo {
         display: flex;
         & img {
@@ -138,7 +142,7 @@ const ContainerStyled = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: .8s;
+            transition: .6s;
             transform: translateY(-100%); 
             background-color: var(--bodyBackground);
 
@@ -182,6 +186,9 @@ function Header() {
     const showNavbar = () => {
         divRefMenu.current.classList.toggle('reponsive_navbar');
       }
+    const handleClicMoveToPage = () => {
+        divRefMenu.current.classList.remove('reponsive_navbar');
+    }
   return (
     <ContainerStyled>
         <Link className='logo' to="/">
@@ -193,19 +200,19 @@ function Header() {
                 <FaTimes size={27} />
             </div> 
             <ul>
-                <li>
+                <li onClick={handleClicMoveToPage}>
                     <NavLink to="/">Home</NavLink>
                 </li>
-                <li>
+                <li onClick={handleClicMoveToPage}>
                     <NavLink to="products">Products </NavLink>
                 </li>
-                <li>
+                <li onClick={handleClicMoveToPage}>
                     <NavLink to="about">About</NavLink>
                 </li>
-                <li>
+                <li onClick={handleClicMoveToPage}>
                     <NavLink to="contact">Contact</NavLink>
                 </li>
-                <li>
+                <li onClick={handleClicMoveToPage}>
                     <NavLink to="faq">FAQ</NavLink>
                 </li>
             </ul>

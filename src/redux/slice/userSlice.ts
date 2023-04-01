@@ -13,6 +13,7 @@ export interface IUser {
     phone: number;
     cart: IProductsCart
     avatar?: string | null
+    theme?: string
 }
 interface UserState {
     user: IUser | null
@@ -33,6 +34,9 @@ export const userSlice = createSlice({
         updateCartUser: (state, actions) => {
             state.user.cart = actions.payload
         },
+        updateAvatarUser: (state, actions) => {
+            state.user.avatar = actions.payload
+        },
         deleteUser: (state) => {
             state.user = null
         }
@@ -41,4 +45,9 @@ export const userSlice = createSlice({
 })
 
 export default userSlice;
-export const { addUser, deleteUser, updateCartUser } = userSlice.actions;
+export const { 
+    addUser,
+    deleteUser, 
+    updateCartUser,
+    updateAvatarUser
+} = userSlice.actions;

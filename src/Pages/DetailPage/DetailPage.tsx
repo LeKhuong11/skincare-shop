@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Breadcrumb, message, Modal, Spin } from 'antd'
+import { Breadcrumb, message, Modal, Rate, Spin } from 'antd'
 import { AiOutlineRise } from 'react-icons/ai'
 import { BsChevronLeft, BsChevronRight, BsDroplet } from 'react-icons/bs'
 import { FiHeart, FiShield } from 'react-icons/fi'
@@ -83,7 +83,10 @@ const ContainerStyled = styled.div`
                     color: var(--bodyColor);
                 }
             }
-            &>div:nth-child(3) {
+            & .rate {
+                margin: 10px 0;
+            }
+            & .quantity {
                 display: flex;
                 align-items: center;
 
@@ -386,7 +389,10 @@ function DetailPage() {
                             <span style={{color: detailProduct?.bgColor}}><h6 style={{color: detailProduct?.color, fontWeight: 550}}>EYE CARE</h6></span>
                             <h5>${detailProduct?.price}</h5>
                         </div>
-                        <div>
+                        <div className='rate'>
+                            <Rate allowHalf defaultValue={detailProduct?.star} style={{ fontSize: 16 }} />
+                        </div>
+                        <div className='quantity'>
                             <p>Quantity: </p> 
                             <h5>{detailProduct?.amount}</h5>
                         </div>

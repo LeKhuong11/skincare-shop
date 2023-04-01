@@ -7,7 +7,11 @@ const ContainerStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    & div {
+        & h4 {
+            color: var(--bodyColor);
+        }
+    }
     & a {
         text-decoration: underline;
     }
