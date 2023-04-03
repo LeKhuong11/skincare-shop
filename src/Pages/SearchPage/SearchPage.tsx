@@ -4,6 +4,7 @@ import CardItem from '../../components/CardItem'
 import FormSignup from '../../components/FormSignUp'
 import { IProducts } from '../../redux/slice/productsSilce'
 import { useAppSelector } from '../../redux/store'
+import Input from '../../components/Input'
 
 
 const ContainerStyled = styled.div`
@@ -28,17 +29,20 @@ const ContainerStyled = styled.div`
       justify-content: space-between;
       width: 100%;
       & select {
-          margin: 15px;
+          margin: 15px 15px 15px 0;
           padding: 8px;
           border-radius: 19px;
           border: 1px solid rgb(224, 223, 223);
       }
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+    }
   }
   & .products {
       margin: 30px auto;
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(257px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
       grid-gap: 40px 35px;
   }
 `
@@ -47,14 +51,30 @@ function SearchPage() {
   const { products } = useAppSelector(state => state.products)
   const [ listProducts, setListProducts ] = useState<IProducts[]>(products)
   
-  
+  const handleChangeSetValueFindProducts = (e: any) => {
+    const value = e.value.toLowerCase();
+
+    if(value) {
+      
+      const newListProduct = products.filter(item => {
+        console.log(value);
+        return item.name.toLowerCase().includes(value)
+      })
+      setListProducts(newListProduct)
+    }
+    //value == '' will reassign with all products
+    else {
+      setListProducts(products)
+    }
+    
+  }
   return (
     <ContainerStyled>
       <div className='titlePage'>
         <h2>Search Results</h2>
       </div>
       <div className='resultFound'>
-        <p>6 products found</p>
+        <p>{listProducts.length} products found</p>
       </div>
       <div className='selectTag'>
         <div>
@@ -78,12 +98,13 @@ function SearchPage() {
           </select>
         </div>
         <div>
-          <select>
-            <option>Price Range</option>
-            <option>Red</option>
-            <option>Yellow</option>
-            <option>Blue</option>
-          </select>
+          <Input 
+            placehoder='Enter the product you want to find...' 
+            type='text'
+            width={350} 
+            name='search'
+            setValue={handleChangeSetValueFindProducts}
+          />
         </div>
       </div>
       <div className='products'>

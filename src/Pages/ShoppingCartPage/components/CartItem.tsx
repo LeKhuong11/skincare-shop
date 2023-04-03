@@ -3,6 +3,8 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { IProductsCart } from "../../../redux/slice/cartSlice";
+import { updateCartUser } from "../../../redux/slice/userSlice";
 
 interface ICartItem {
     id: string
@@ -132,8 +134,9 @@ const ContainerStyled = styled.div`
 
 export default function CartItem({id, onClick, img, price, name, quantity}: ICartItem) {
     const dispatch = useAppDispatch()
-    const { cart } = useAppSelector(state => state.cart)
+    const { user } = useAppSelector(state => state.user)
     const [ countItem, setCountItem ] = useState(quantity)
+    let cart: IProductsCart[] = user?.cart;
 
     const handleClickDecrease = () => {
         if(countItem > 1) {
@@ -150,12 +153,9 @@ export default function CartItem({id, onClick, img, price, name, quantity}: ICar
     const handleClickIncrease = () => {
         if(countItem < 10) {
             setCountItem(countItem + 1)
-            // cart.forEach(item => {
-            //     if(item._id === id) {
-            //         item.quantity = countItem
-            //     }
-            // })
-            // dispatch(updateCart(cart))
+           
+           
+            
         }
     }
 

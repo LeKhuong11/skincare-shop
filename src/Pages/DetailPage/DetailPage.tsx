@@ -12,7 +12,7 @@ import TitleSection from '../../components/TitleSection'
 import axios from 'axios'
 import Loading from '../../components/Loading'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
-import { IProductsCart } from '../../redux/slice/cartSlice'
+import { IProductsCart, addCart } from '../../redux/slice/cartSlice'
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { updateCartUser } from '../../redux/slice/userSlice'
 
@@ -98,11 +98,22 @@ const ContainerStyled = styled.div`
                     margin-right: 15px;
                 }
             }
+            & strong {
+                font-weight: var(--fontWeightSemibold)
+            }
+            
             & .buttons {
                 display: flex;
                 margin-top: 30px;
                 align-items: center;
-
+                @media only screen and (max-width: 768px) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    
+                    & .heart, .amount, .button-buy-now, .button-add-to-cart {
+                        margin: 8px 0;
+                    }
+                } 
                 & .heart {
                     margin-left: 20px;
                     cursor: pointer;    
@@ -290,7 +301,6 @@ function DetailPage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const { user } = useAppSelector(state => state.user)
-    // const { cart } = useAppSelector(state => state.cart)
     const [ loading, setLoading ] = useState(false)
     const [ loadingAddToCart, setLoadingAddToCart ] = useState(false)
     const [ detailProduct, setDetailProuct ] = useState<any>();
@@ -352,6 +362,11 @@ function DetailPage() {
         setLoadingAddToCart(false)
     }
 
+    const handleClickBuyItem = (id: string) => {
+        dispatch(addCart(detailProduct))
+        navigate('../checkout')
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
       }, []);
@@ -393,8 +408,10 @@ function DetailPage() {
                             <Rate allowHalf defaultValue={detailProduct?.star} style={{ fontSize: 16 }} />
                         </div>
                         <div className='quantity'>
-                            <p>Quantity: </p> 
-                            <h5>{detailProduct?.amount}</h5>
+                            <p><strong>Quantity: </strong>{detailProduct?.amount}</p> 
+                        </div>
+                        <div className='desc'>
+                            <p><strong>Desciption: </strong>{detailProduct?.description}</p>
                         </div>
                         <div className='buttons'>
                             <div className="amount">
@@ -409,6 +426,13 @@ function DetailPage() {
                                         onClick={() => countItem < 10 && setCountItem(countItem + 1)}
                                     ><BsChevronRight/></button>
                                 </div>
+                            </div>
+                            <div className='button-buy-now'>
+                                <Button 
+                                    type='medium' 
+                                    content='Buy now' 
+                                    onClick={() => handleClickBuyItem(`${id}`)}
+                                />
                             </div>
                             <div className='button-add-to-cart'>
                                 {loadingAddToCart ? <Spin /> : 

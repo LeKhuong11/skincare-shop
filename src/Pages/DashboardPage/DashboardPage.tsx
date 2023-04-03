@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import TitleSection from '../../components/TitleSection'
 import { UploadOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { deleteUser, updateAvatarUser } from '../../redux/slice/userSlice';
+import { addUser, deleteUser, updateAvatarUser } from '../../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -53,12 +53,18 @@ function DashboardPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { user } = useAppSelector(state => state.user)
-    const [ userChangePassword, setUserChangePassword ] = useState({
+    const [ updateUser, setUpdateUser ] = useState<boolean>(false);
+    const [ changeInfoUser, setChangeInfoUser ] = useState({
+        email: user?.email,
+        displayName: user?.displayName,
+        birthDay: user?.birthDay
+    })
+    const [ openModalChangePassword, setOpenModalChangePassword ] = useState<boolean>(false);
+    const [ changePasswordUser, setChangePasswordUser ] = useState({
         password: '',
         newPassword: '',
         confirmPassword: ''
     });
-    const [ openModalChangePassword, setOpenModalChangePassword ] = useState(false);
     
 
     const handleClickLogout = () => {
@@ -72,8 +78,8 @@ function DashboardPage() {
         const name = e.name;
         const value = e.value
 
-        setUserChangePassword({
-            ...userChangePassword,
+        setChangePasswordUser({
+            ...changePasswordUser,
             [name]: value,
           });
     }
@@ -82,9 +88,9 @@ function DashboardPage() {
     const handleOkModalChangePassword = async () => {
         const dataUpdatePassword = {
             userName: user.userName,
-            password: userChangePassword.password,
-            newPassword: userChangePassword.newPassword,
-            confirmPassword: userChangePassword.confirmPassword
+            password: changePasswordUser.password,
+            newPassword: changePasswordUser.newPassword,
+            confirmPassword: changePasswordUser.confirmPassword
         }
         await axios.put(`https://backend-skincare-shop.vercel.app/auth/change-password-user/${user._id}`, dataUpdatePassword) 
             .then(res => {
@@ -98,6 +104,7 @@ function DashboardPage() {
             })
     };
 
+    //handle Upload avatar
     const props: UploadProps = {
         name: 'file',
         action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -125,6 +132,30 @@ function DashboardPage() {
         },
       };
 
+    //handle update infor user 
+    const handleChangeSetValueUpdateInfoUser = (e: any) => {
+        const name = e.name;
+        const value = e.value;
+
+        setChangeInfoUser({
+            ...changeInfoUser,
+            [name]: value
+        })
+    }
+
+    const handleClickUpdateInfoUser = async () => {
+        await axios.put(`http://localhost:3000/auth/update-user/${user._id}`, changeInfoUser) 
+            .then(res => {
+                message.success("Update user susscessfully!")
+                setUpdateUser(false)
+                dispatch(addUser(res.data))
+            })
+            .catch(err => {
+                message.warning('Update user fail!')
+                console.log(err);
+            })
+    }
+
   return (
     <ContainerStyled>
         <div>
@@ -147,33 +178,58 @@ function DashboardPage() {
             </div>
             <div className='infor-user'>
                 <div>
+                    <h5>UserName: </h5>
+                    <p>{user?.userName}</p>
+                </div>
+                <div>
                     <h5>Email: </h5>
-                    <p>{user?.email}</p>
+                    {updateUser ? 
+                        <Input type='text' 
+                        defaultValue={user?.email} 
+                        name='email'
+                        setValue={handleChangeSetValueUpdateInfoUser}
+                    /> : <p>{user?.email}</p>}
                 </div>
                 <div>
                     <h5>Display Name: </h5>
-                    <p>{user?.displayName}</p>
+                    {updateUser ? 
+                        <Input 
+                            type='text' 
+                            defaultValue={user?.displayName} 
+                            name='displayName'
+                            setValue={handleChangeSetValueUpdateInfoUser}
+                        /> : <p>{user?.displayName}</p>}
                 </div>
                 <div>
                     <h5>Birth Day: </h5>
-                    <p>{user?.birthDay}</p>
-                </div>
-                <div>
-                    <h5>UserName: </h5>
-                    <p>{user?.userName}</p>
+                    {updateUser ? 
+                        <Input 
+                            type='text' 
+                            defaultValue={user?.birthDay} 
+                            name='birthDay'
+                            setValue={handleChangeSetValueUpdateInfoUser}
+                        /> : <p>{user?.birthDay}</p>}
                 </div>
                 <div>
                     <h5>Role: </h5>
                     <p>{user?.isAdmin ? 'Admin' : 'User'}</p>
                 </div>
                 <div>
-                    <Button type='small' content='Edit Information' />
-                    <Button type='small' content='Change password' onClick={handleClickChangePassword} />
-                    <Button 
-                        type='small' 
-                        content='Logout' 
-                        onClick={handleClickLogout}
-                    />
+                    {updateUser ? 
+                        <>
+                            <Button type='small' content='Done' onClick={handleClickUpdateInfoUser} />
+                            <Button type='small' content='Cancel' onClick={() => setUpdateUser(false)} />
+                        </> : 
+                        <>
+                            <Button type='small' content='Edit Information' onClick={() => setUpdateUser(true)} />
+                            <Button type='small' content='Change password' onClick={handleClickChangePassword} />
+                            <Button 
+                                type='small' 
+                                content='Logout' 
+                                onClick={handleClickLogout}
+                            />
+                        </>
+                    }
                 </div>
             </div>
         </div>

@@ -226,7 +226,6 @@ function Header() {
                     <Link to="search">
                         <BiSearch fontSize={23} />
                     </Link>
-                    {pathname === '/search' && <Input type='text' width={250} />}
                 </li>
                 <li className='shopping-cart'>
                     <Link to="shopping-cart">
