@@ -3,7 +3,7 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { IProductsCart } from "../../../redux/slice/cartSlice";
+import { IProductsCart } from "../../../redux/slice/payProductsSlice";
 import { updateCartUser } from "../../../redux/slice/userSlice";
 
 interface ICartItem {

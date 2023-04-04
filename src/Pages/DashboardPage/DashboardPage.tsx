@@ -144,10 +144,12 @@ function DashboardPage() {
     }
 
     const handleClickUpdateInfoUser = async () => {
-        await axios.put(`http://localhost:3000/auth/update-user/${user._id}`, changeInfoUser) 
+        await axios.put(`https://backend-skincare-shop.vercel.app/auth/update-user/${user._id}`, changeInfoUser) 
             .then(res => {
                 message.success("Update user susscessfully!")
                 setUpdateUser(false)
+                console.log(res.data);
+                
                 dispatch(addUser(res.data))
             })
             .catch(err => {

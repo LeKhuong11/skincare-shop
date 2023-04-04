@@ -18,30 +18,30 @@ export interface IProductsCart {
     }
     quantity: number
 }
-interface ICartState {
-    cart: IProductsCart[]
+interface IPaymentProductState {
+    paymentProducts: IProductsCart[]
 }
 
-const initialState: ICartState = {
-    cart: []
+const initialState: IPaymentProductState = {
+    paymentProducts: []
 }
 
-const cartSlice = createSlice({
-    name: 'cart',
+const paymentProductSlice = createSlice({
+    name: 'payment',
     initialState: initialState,
     reducers: {
-        addCart: (state, action) => {
-            state.cart = action.payload
+        addPaymentProduct: (state, action) => {
+            state.paymentProducts = action.payload
         }, 
-        clearCart: (state) => {
-            state.cart = []
+        clearPayment: (state) => {
+            state.paymentProducts = []
         }
     },
     
 })
 
 export const { 
-    addCart,
-    clearCart 
-} = cartSlice.actions
-export default cartSlice
+    addPaymentProduct,
+    clearPayment 
+} = paymentProductSlice.actions
+export default paymentProductSlice

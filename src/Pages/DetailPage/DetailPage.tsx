@@ -12,7 +12,7 @@ import TitleSection from '../../components/TitleSection'
 import axios from 'axios'
 import Loading from '../../components/Loading'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
-import { IProductsCart, addCart } from '../../redux/slice/cartSlice'
+import { IProductsCart, addPaymentProduct } from '../../redux/slice/payProductsSlice'
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { updateCartUser } from '../../redux/slice/userSlice'
 
@@ -357,13 +357,14 @@ function DetailPage() {
             })
             .catch(err => {
                 message.warning('Added product to cart fail!')
-                console.log(err);
             })
         setLoadingAddToCart(false)
     }
 
     const handleClickBuyItem = (id: string) => {
-        dispatch(addCart(detailProduct))
+        //set quantity products before dispatch to buy products
+        detailProduct.quantity = countItem
+        dispatch(addPaymentProduct([detailProduct]))
         navigate('../checkout')
     }
 

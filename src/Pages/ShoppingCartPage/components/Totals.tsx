@@ -3,8 +3,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Button from '../../../components/Button'
-import { IProductsCart } from '../../../redux/slice/cartSlice'
-import { useAppSelector } from '../../../redux/store'
+import { IProductsCart, addPaymentProduct } from '../../../redux/slice/payProductsSlice'
+import { useAppDispatch, useAppSelector } from '../../../redux/store'
 
 const ContainerStyled = styled.div`
     width: 30%;
@@ -61,6 +61,7 @@ const ContainerStyled = styled.div`
 
 export default function Totals() {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const { user } = useAppSelector(state => state.user)
     const cartItem: IProductsCart[] = user.cart
     let total: number = 0;
@@ -72,6 +73,7 @@ export default function Totals() {
 
     const handleClickCheckout = () => {
         if(user?.cart.length > 0) {
+            dispatch(addPaymentProduct(cartItem))
             navigate('../checkout')
         }
         else {

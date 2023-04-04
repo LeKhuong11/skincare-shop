@@ -87,7 +87,11 @@ const ContainerStyled = styled.div`
     }
 `
 
-function Steps() {
+interface IPropds {
+    onClick: any
+}
+
+function Steps({onClick}: IPropds) {
     const navigate = useNavigate();
     const steps: any[] = [
         {
@@ -116,10 +120,7 @@ function Steps() {
     title: item.title,
   }));
 
-  const handleClickOder = () => {
-    navigate('../products')
-    message.success('Processing complete!')
-  }
+
 
   return (
     <ContainerStyled>
@@ -133,7 +134,7 @@ function Steps() {
                 </Button>
             )}
             {current === steps.length - 1 && (
-                <Button type="primary" onClick={() => handleClickOder()}>
+                <Button type="primary" onClick={() => onClick()}>
                 Done
                 </Button>
             )}

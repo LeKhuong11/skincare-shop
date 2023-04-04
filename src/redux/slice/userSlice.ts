@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { IProductsCart } from "./cartSlice";
+import { IProductsCart } from "./payProductsSlice";
 
 
 export interface IUser {
