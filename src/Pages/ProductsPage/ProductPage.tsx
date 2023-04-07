@@ -37,6 +37,7 @@ function ProductPage() {
         </div>
         <div className='products'>
             {listProducts.map(item => (
+                console.log(item.discouter),
             <CardItem 
                 key={item._id}
                 id={item._id}
@@ -47,6 +48,7 @@ function ProductPage() {
                 imageProduct={item.img}
                 price={item.price}
                 oldPrice={item.oldPrice}
+                sale={item.discouter}
             />
             ))}
         </div>

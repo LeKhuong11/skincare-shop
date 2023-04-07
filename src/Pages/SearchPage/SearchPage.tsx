@@ -118,6 +118,7 @@ function SearchPage() {
             nameProduct={item.name}
             imageProduct={item.img}
             price={item.price}
+            sale={item.discouter}
           />
         ))}
       </div>

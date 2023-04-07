@@ -106,6 +106,22 @@ export default function LoginPage() {
     }
   }
 
+  //Forgot password 
+  const handleClickForgotPassword = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      email: '11lekhuong@gmail.com'
+    }
+    await axios.post('http://localhost:3000/forgot-password/send-mail', data)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+        
+      })
+  }
+
 
   return (
     <ContainerStyled>
@@ -143,7 +159,7 @@ export default function LoginPage() {
             />
           </Link>
 
-          <Link to="">Forgot Password?</Link>
+          <Button type="transparent" content="Forgot Password?" onClick={handleClickForgotPassword}></Button>
         </div>
       </form>
     </ContainerStyled>

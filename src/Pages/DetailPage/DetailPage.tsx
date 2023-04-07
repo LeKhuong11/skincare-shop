@@ -65,7 +65,7 @@ const ContainerStyled = styled.div`
 
         & .info-product {
 
-            &>div:nth-child(2) {
+            & .info {
                 display: flex;
                 align-items: center;
                 & span {
@@ -81,6 +81,12 @@ const ContainerStyled = styled.div`
                 }
                 & h5 {
                     color: var(--bodyColor);
+                }
+                
+                & .old-price {
+                    text-decoration: line-through;
+                    opacity: .5;
+                    margin-right: 10px;
                 }
             }
             & .rate {
@@ -306,6 +312,8 @@ function DetailPage() {
     const [ detailProduct, setDetailProuct ] = useState<any>();
     const [ countItem, setCountItem ] = useState(1)
     let cart: IProductsCart[] = user?.cart;
+    const discounter = (((100 - detailProduct?.discouter) / 100) * detailProduct?.price).toFixed(0)
+
     //get product by id 
     useEffect(() => {
         setLoading(true)
@@ -416,9 +424,10 @@ function DetailPage() {
                         <div>
                             <TitleSection title={detailProduct?.name} subTitle='Selling Fast' />
                         </div>
-                        <div>
+                        <div className='info'>
                             <span style={{color: detailProduct?.bgColor}}><h6 style={{color: detailProduct?.color, fontWeight: 550}}>EYE CARE</h6></span>
-                            <h5>${detailProduct?.price}</h5>
+                            <h5 className='old-price'>{detailProduct?.discouter ? `$${detailProduct?.price}` : '123'}</h5>
+                            <h5>${detailProduct?.discouter ? discounter : detailProduct?.price}</h5>
                         </div>
                         <div className='rate'>
                             <Rate allowHalf defaultValue={detailProduct?.star} style={{ fontSize: 16 }} />

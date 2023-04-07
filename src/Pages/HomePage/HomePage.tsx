@@ -83,7 +83,7 @@ const ContainerStyled = styled.div`
       }
 
       & .categories {
-        width: 100%;
+        width: 98%;
         overflow: hidden;
         
         & .items {
@@ -169,8 +169,16 @@ function HomePage() {
   }, []);
 
   const handleClickNext = () => {
-    if(width < 1024)
-      transform > -(divRef.current.offsetWidth/1.5) ? setTransform(prev => prev - 140) : setTransform(transform)
+    console.log(divRef.current.offsetWidth/1.5);
+    //1024 => 4
+    //768 => 1.5
+    //500 => + 140px
+    const breakPoint = width <= 500 ? divRef.current.offsetWidth + 140 : width <= 768 ? divRef.current.offsetWidth/1.5 : width <= 1024 ? divRef.current.offsetWidth/4 : 0;
+    
+    if(width < 1024){
+      transform > -breakPoint ? setTransform(prev => prev - 140) : setTransform(transform)
+      
+    }
   }
   const handleClickPrev = () => {
     if(width < 1024)
@@ -225,7 +233,7 @@ function HomePage() {
             <ButtonScroll clickNext={handleClickNext} clickPrev={handleClickPrev} />
           </div>
           <div className='categories'>
-            <div ref={divRef} className='items' style={{transform: `translateX(${width > 768 ? 0 : transform}px)`}}>
+            <div ref={divRef} className='items' style={{transform: `translateX(${width > 1024 ? 0 : transform}px)`}}>
               {theCategories.map(item => (
                 <Categories key={item.id} icon={item.icon} title={item.title} />
               ))}
@@ -249,6 +257,7 @@ function HomePage() {
                   imageProduct={item.img}
                   price={item.price}
                   oldPrice={item.oldPrice}
+                  sale={item.discouter}
               />
               ))}
           </div>

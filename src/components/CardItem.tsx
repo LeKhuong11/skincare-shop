@@ -17,11 +17,12 @@ interface ICardItem {
         public_id: string
     },
     price?: number,
-
+    sale?: number
 }
 
 const ContainerStyled = styled.div`
     height: 350px;
+    position: relative;
     a {
         text-decoration: none;
 
@@ -62,9 +63,29 @@ const ContainerStyled = styled.div`
             }
         }
     }
+
+    & .sale {
+        display: flex;  
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+        background: #FF0000;
+        border-radius: 24px;
+        width: 70px;
+        height: 29px;
+        position: absolute;
+        top: 30px;
+        right: -7px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        & h5 {
+            color: var(--white);
+            font-size: 10px;
+        }
+    }
 `
 
-function CardItem({id, star, color, bgColor, nameProduct, price, oldPrice, imageProduct}: ICardItem) {
+function CardItem({id, star, color, bgColor, nameProduct, price = 0, oldPrice, imageProduct, sale = 0}: ICardItem) {
+    const discounter = ((100 - sale) / 100) * price
   return (
     <ContainerStyled className='root'>
         <Link to={`../products/detail/${id}`}>
@@ -78,10 +99,14 @@ function CardItem({id, star, color, bgColor, nameProduct, price, oldPrice, image
                 </div>
                 <div style={{display: 'flex', alignItems: 'center', margin: '0 6px'}}>
                     <span className='type' style={{ backgroundColor: bgColor}}><h6 style={{color: color, fontWeight: 550}}>EYE CARE</h6></span>
-                    <h5 className='old-price'>{oldPrice ? `$${oldPrice}` : ''}</h5>
-                    <h5>${price}</h5>
+                    <h5 className='old-price'>{sale ? `$${price}` : ''}</h5>
+                    <h5>${sale ? discounter.toFixed(0) : price}</h5>
                 </div>
             </div>
+            {sale ? 
+                <div className='sale'>
+                    <h5>{sale}% OFF</h5>
+                </div> : ''}
         </Link>
     </ContainerStyled>
   )

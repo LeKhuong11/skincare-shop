@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface IProductsCart {
     _id: string
     name: string
-    price: number
+    price: number 
     description: string
-    discouter: number
+    discouter: number 
     star: number
     categories: number
     amount: string
@@ -16,7 +16,7 @@ export interface IProductsCart {
         public_id: string
         url: string
     }
-    quantity: number
+    quantity: number,
 }
 interface IPaymentProductState {
     paymentProducts: IProductsCart[]
