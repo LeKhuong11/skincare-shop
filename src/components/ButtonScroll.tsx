@@ -2,6 +2,11 @@ import React from 'react'
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 import styled from 'styled-components'
 
+interface IButtonScroll {
+    clickNext?: any,
+    clickPrev?: any
+}
+
 const ContainerStyled = styled.div`
     width: 112px;
     display: flex;
@@ -30,11 +35,11 @@ const ContainerStyled = styled.div`
     }
 `
 
-function ButtonScroll() {
+function ButtonScroll({clickNext, clickPrev}: IButtonScroll) {
   return (
         <ContainerStyled>
-            <button className='btnSlideLeft'><BsChevronLeft/></button>
-            <button className='btnSlideRight'><BsChevronRight/></button>
+            <button className='btnSlideLeft' onClick={clickPrev}><BsChevronLeft/></button>
+            <button className='btnSlideRight' onClick={clickNext}><BsChevronRight/></button>
         </ContainerStyled>
   )
 }

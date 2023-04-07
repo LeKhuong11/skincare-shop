@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { BsBagDash, BsDroplet, BsMoon, BsSun } from 'react-icons/bs'
 import { FiEye, FiShield } from 'react-icons/fi'
 import styled from 'styled-components'
@@ -83,7 +83,13 @@ const ContainerStyled = styled.div`
       }
 
       & .categories {
-        display: flex;
+        width: 100%;
+        overflow: hidden;
+        
+        & .items {
+          display: flex;
+          transition: transform .25s linear;
+        }
       }
     }
 
@@ -150,6 +156,26 @@ const theCategories = [
 function HomePage() {
   const { products } = useAppSelector(state => state.products)
   const [ listProducts, setListProducts ] = useState<IProducts[]>(products)
+  const [ transform, setTransform ] = useState(0)
+  const [width, setWidth] = useState(window.innerWidth);
+  const divRef = useRef<any>();
+
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth)
+    window.addEventListener("resize", handleWindowResize);
+
+    // Return a function from the effect that removes the event listener
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
+
+  const handleClickNext = () => {
+    if(width < 1024)
+      transform > -(divRef.current.offsetWidth/1.5) ? setTransform(prev => prev - 140) : setTransform(transform)
+  }
+  const handleClickPrev = () => {
+    if(width < 1024)
+      transform < 0 ? setTransform(prev => prev + 140) : setTransform(0)
+  }
   return (
     <ContainerStyled>
       <Carousel autoplay>
@@ -196,12 +222,14 @@ function HomePage() {
        <div className='theCategories'>
           <div>
             <TitleSection title="Browse by Category" subTitle="The Categories"/>
-            <ButtonScroll />
+            <ButtonScroll clickNext={handleClickNext} clickPrev={handleClickPrev} />
           </div>
           <div className='categories'>
-            {theCategories.map(item => (
-              <Categories key={item.id} icon={item.icon} title={item.title} />
-            ))}
+            <div ref={divRef} className='items' style={{transform: `translateX(${width > 768 ? 0 : transform}px)`}}>
+              {theCategories.map(item => (
+                <Categories key={item.id} icon={item.icon} title={item.title} />
+              ))}
+            </div>
           </div>
        </div>
        <div className='our-products'>

@@ -42,11 +42,28 @@ const ContainerStyled = styled.div`
                 }
             }
         }
+
+        @media only screen and (max-width: 1024px) {
+            flex-direction: column;
+
+            & .avatar-user {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            & .infor-user {
+                width: 100%;
+            }
+        }
     }
     
     & .input {
         margin: 15px 0;
     }
+
+   
 `
 
 function DashboardPage() {

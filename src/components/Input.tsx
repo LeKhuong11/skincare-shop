@@ -20,17 +20,22 @@ const InputStyled = styled.input`
   border: 2px solid var(--bodyBorder);
   background: var(--bodyBackground);
   color: var(--bodyColor);
+  width: 452px;
 
   &:focus {
     border: 2px solid var(--green);
   }
   @media only screen and (max-width: 768px) {
-    width: 380px;
+    width: 390px;
+  }
+  @media only screen and (max-width: 500px) {
+    width:365px;
+    padding: 8px;
   }
 
 `
 
-function Input({type, placehoder, setValue, name, require, defaultValue, width = 452}: IInput) {
+function Input({type, placehoder, setValue, name, require, defaultValue, width}: IInput) {
   return (
     <InputStyled 
       style={{width: width}}

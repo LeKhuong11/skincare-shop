@@ -362,6 +362,21 @@ function DetailPage() {
     }
 
     const handleClickBuyItem = (id: string) => {
+        //Check user if haven't logged in yet will navigate to login
+        if(!user) {
+            confirm({
+                title: 'You are not logged in?',
+                icon: <ExclamationCircleFilled />,
+                content: 'Go to Login page!',
+                onOk() {
+                  navigate('../login')
+                },
+                onCancel() {
+                    setLoadingAddToCart(false) 
+                }
+              });
+              return
+        } 
         //set quantity products before dispatch to buy products
         detailProduct.quantity = countItem
         dispatch(addPaymentProduct([detailProduct]))

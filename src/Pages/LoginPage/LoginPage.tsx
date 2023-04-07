@@ -123,7 +123,7 @@ export default function LoginPage() {
         <div>
           <label htmlFor="">Password</label><br />
           <Input 
-            type="text" 
+            type="password" 
             placehoder="Enter your password" 
             setValue={handleChangeSetLogin}
             name="password"

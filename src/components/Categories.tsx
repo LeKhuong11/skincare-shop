@@ -8,6 +8,7 @@ interface ICategories {
 
 const ContainerStyled = styled.div`
         width: 120px;
+        min-width: 120px;
         height: 120px;
         border-radius: 24px;
         display: flex;
