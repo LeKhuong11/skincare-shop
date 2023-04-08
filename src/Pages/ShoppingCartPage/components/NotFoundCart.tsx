@@ -26,8 +26,8 @@ function NotFoundCart() {
         <svg
             xmlns="http://www.w3.org/2000/svg"
             // dataName="Layer 1"
-            width="400"
-            height="400"
+            width="350"
+            height="350"
             viewBox="0 0 896 747.97143"
             xlinkHref="http://www.w3.org/1999/xlink"
         >

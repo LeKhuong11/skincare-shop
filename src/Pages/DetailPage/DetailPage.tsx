@@ -55,10 +55,30 @@ const ContainerStyled = styled.div`
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                position: relative;
 
                 & img {
                     width: 150px;
                     height: 230px;
+                }
+                
+                & .sale {
+                    display: flex;  
+                    justify-content: center;
+                    align-items: center;
+                    padding: 8px;
+                    background: #FF0000;
+                    border-radius: 24px;
+                    width: 95px;
+                    height: 35px;
+                    position: absolute;
+                    top: 25px;
+                    right: -15px;
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+                    & h5 {
+                        color: var(--white);
+                        font-size: 13px;
+                    }
                 }
             }
         }
@@ -307,6 +327,7 @@ function DetailPage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const { user } = useAppSelector(state => state.user)
+    const { products } = useAppSelector(state => state.products)
     const [ loading, setLoading ] = useState(false)
     const [ loadingAddToCart, setLoadingAddToCart ] = useState(false)
     const [ detailProduct, setDetailProuct ] = useState<any>();
@@ -418,6 +439,11 @@ function DetailPage() {
                             <span>
                                 <img src={detailProduct?.img.url} alt='product' />
                             </span>
+                            {detailProduct?.discouter ? 
+                            <div className='sale'>
+                                <h5>{detailProduct?.discouter}% OFF</h5>
+                            </div> : 
+                            ''}
                         </div>
                     </div>
                     <div className='info-product'>
@@ -426,7 +452,7 @@ function DetailPage() {
                         </div>
                         <div className='info'>
                             <span style={{color: detailProduct?.bgColor}}><h6 style={{color: detailProduct?.color, fontWeight: 550}}>EYE CARE</h6></span>
-                            <h5 className='old-price'>{detailProduct?.discouter ? `$${detailProduct?.price}` : '123'}</h5>
+                            <h5 className='old-price'>{detailProduct?.discouter ? `$${detailProduct?.price}` : ''}</h5>
                             <h5>${detailProduct?.discouter ? discounter : detailProduct?.price}</h5>
                         </div>
                         <div className='rate'>
@@ -510,13 +536,20 @@ function DetailPage() {
                         <TitleSection title='Related Products' subTitle='Explore More' />
                     </div>
                     <div className='products'>
-                        <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-                        <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-                        <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
-                        <CardItem bgColor="rgba(0, 204, 150, 0.1)" color="#00cc96" />
-                        <CardItem bgColor="rgb(41,117,255, 0.1)" color="#2975FF" />
-                        <CardItem bgColor="rgb(255,193,35, 0.1)" color="#FFC123" />
-                        <CardItem bgColor="rgb(255,102,160, 0.1)" color="#FF66A0" />
+                        {products.map(item => (
+                            <CardItem 
+                                key={item._id}
+                                id={item._id}
+                                star={item.star}
+                                bgColor={item.bgColor}
+                                color={item.color}
+                                nameProduct={item.name}
+                                imageProduct={item.img}
+                                price={item.price}
+                                oldPrice={item.oldPrice}
+                                sale={item.discouter}
+                            />
+                        ))}
                     </div>
                 </div>
                 <FormSignup />

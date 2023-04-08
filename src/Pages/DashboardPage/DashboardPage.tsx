@@ -165,8 +165,6 @@ function DashboardPage() {
             .then(res => {
                 message.success("Update user susscessfully!")
                 setUpdateUser(false)
-                console.log(res.data);
-                
                 dispatch(addUser(res.data))
             })
             .catch(err => {

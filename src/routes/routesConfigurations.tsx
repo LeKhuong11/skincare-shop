@@ -12,6 +12,7 @@ import SearchPage from "../Pages/SearchPage/SearchPage"
 import ShoppingCartPage from "../Pages/ShoppingCartPage/ShoppingCartPage"
 import SignUppage from "../Pages/SignUpPage/SignUpPage"
 import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage"
+import ForgotPasswordPage from "../Pages/ForgotPasswordPage/ForgotPasswordPage"
 
 interface IRoutes {
     path: string,
@@ -68,6 +69,10 @@ export function RoutesConfigurations() {
         {
             path: 'checkout',
             element: <CheckoutPage />
+        },
+        {
+            path: 'login/forgot-password',
+            element: <ForgotPasswordPage />
         },
         {
             path: '*',

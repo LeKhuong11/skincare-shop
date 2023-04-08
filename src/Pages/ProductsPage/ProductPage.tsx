@@ -37,19 +37,18 @@ function ProductPage() {
         </div>
         <div className='products'>
             {listProducts.map(item => (
-                console.log(item.discouter),
-            <CardItem 
-                key={item._id}
-                id={item._id}
-                star={item.star}
-                bgColor={item.bgColor}
-                color={item.color}
-                nameProduct={item.name}
-                imageProduct={item.img}
-                price={item.price}
-                oldPrice={item.oldPrice}
-                sale={item.discouter}
-            />
+                <CardItem 
+                    key={item._id}
+                    id={item._id}
+                    star={item.star}
+                    bgColor={item.bgColor}
+                    color={item.color}
+                    nameProduct={item.name}
+                    imageProduct={item.img}
+                    price={item.price}
+                    oldPrice={item.oldPrice}
+                    sale={item.discouter}
+                />
             ))}
         </div>
         <div className='pagination'> 

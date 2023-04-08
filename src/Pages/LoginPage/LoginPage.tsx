@@ -86,42 +86,27 @@ export default function LoginPage() {
   const handleClickLogin = async (e: any) => {
     e.preventDefault();
     try {
-      const {data, status} = await axios.post<User>('https://backend-skincare-shop.vercel.app/auth/login',
+      await axios.post('https://backend-skincare-shop.vercel.app/auth/login',
         {
           userName: login.username,
           password: login.password
         }
-      );
-      if(status === 200){
-        dispatch(addUser(data))
+      ) 
+      .then(res => {
+        dispatch(addUser(res.data))
+        message.success("Login successfully!")
         navigate('../')
-        message.success("Logined susscessfully!")
-        return
-      } 
-      message.warning("Login fail!")
+      })
+      .catch(err => {
+        console.log(err)
+        message.warning("Login fail!")
+      })
       
 
     } catch(err) {
       message.warning("Login fail!")
     }
   }
-
-  //Forgot password 
-  const handleClickForgotPassword = async (e: any) => {
-    e.preventDefault();
-    const data = {
-      email: '11lekhuong@gmail.com'
-    }
-    await axios.post('http://localhost:3000/forgot-password/send-mail', data)
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-        
-      })
-  }
-
 
   return (
     <ContainerStyled>
@@ -158,8 +143,9 @@ export default function LoginPage() {
               content="Create Account" 
             />
           </Link>
-
-          <Button type="transparent" content="Forgot Password?" onClick={handleClickForgotPassword}></Button>
+          <Link to="forgot-password">
+            <Button type="transparent" content="Forgot Password?"></Button>
+          </Link>
         </div>
       </form>
     </ContainerStyled>
